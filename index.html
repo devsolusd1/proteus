@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Proteus — The God of a Thousand Forms</title>
+  <meta name="description" content="The shapeshifting ERC-20. Burn a tribute to rename the god and collect 1% of every trade until a rival captures him from you.">
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Manrope:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <nav class="nav">
+    <a class="wordmark" href="#top">PROTEUS</a>
+    <div class="nav-links mono">
+      <a href="#rite">THE RITE</a>
+      <a href="#forms">BOOK OF FORMS</a>
+      <a href="https://x.com" target="_blank" rel="noopener">X</a>
+    </div>
+    <a class="btn btn-ink mono" href="https://app.uniswap.org/" target="_blank" rel="noopener">BUY <span data-bind="ticker">$SQUID</span> ON UNISWAP</a>
+  </nav>
+
+  <div class="utility mono">
+    <span class="live-dot" aria-hidden="true"></span>
+    <span>CURRENT FORM <b class="gold" data-bind="ticker">$SQUID</b> · <b class="gold" data-bind="form-roman">VII</b></span>
+    <span class="sep">│</span>
+    <span>NEXT TRIBUTE <b class="gold" data-bind="next-tribute">1,680,000</b> $PROTEUS</span>
+    <span class="sep">│</span>
+    <span>CAPTOR EARNED <b class="gold" data-bind="earned">4.31 ETH</b></span>
+    <span class="sep">│</span>
+    <span>TITHE <b class="gold">2%</b> ON EVERY TRADE</span>
+  </div>
+
+  <header class="hero" id="top">
+    <h1 class="hero-title serif">THE GOD OF<br>A THOUSAND FORMS</h1>
+    <figure class="plate reveal">
+      <img src="assets/proteus-plate.jpg" alt="Protheus, copper engraving, 16th century" width="380">
+      <figcaption class="mono">PROTHEVS — COPPER ENGRAVING, 16TH CENTURY</figcaption>
+    </figure>
+  </header>
+
+  <section class="panel" id="current">
+    <div class="panel-left">
+      <div class="label mono gold">CURRENTLY MANIFESTING AS</div>
+      <h2 class="panel-name serif" data-bind="name-serif">Gigasquid.</h2>
+      <p class="panel-sub serif-italic"><span data-bind="form-line">form № VII — captured two days ago</span></p>
+    </div>
+    <div class="panel-right">
+      <p class="body">One contract, endless disguises. Burn a tribute of $PROTEUS to rename the god — name, ticker and face — and collect 1% of every trade until a rival captures him from you. He keeps the same address through every life.</p>
+      <div class="panel-stats mono">
+        <span>CAPTOR <span data-bind="captor">0x3aF9…c2E1</span></span>
+        <span>EARNED <b class="gold" data-bind="earned">4.31 ETH</b></span>
+        <span>BURNED <b class="gold" data-bind="burned-pct">3.6%</b> OF SUPPLY</span>
+      </div>
+      <div class="cta-row">
+        <button class="btn btn-paper mono" id="capture-btn" type="button">CAPTURE HIM</button>
+        <a class="btn btn-ghost mono" href="#rite">READ THE RITE</a>
+      </div>
+      <div class="demo-note mono">capture runs a local simulation until the contract ships</div>
+      <button class="ca mono" id="ca-btn" type="button" title="Copy contract address">
+        <span>CA 0x0000…0000</span>
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="1"></rect><path d="M5 15V5a2 2 0 0 1 2-2h10"></path></svg>
+      </button>
+      <p class="fine serif-italic">Whatever he calls himself, the contract never changes.</p>
+    </div>
+  </section>
+
+  <section class="section" id="rite">
+    <div class="section-head reveal">
+      <h2 class="serif">Names become income.</h2>
+      <div class="section-side">
+        <p class="body">Whoever renames Proteus becomes the Captor: half of the 2% tithe streams to them for as long as the name stands. Renaming is not vanity — it is buying the cashflow.</p>
+        <a class="mono link-u" href="#forms">SEE EVERY PAST NAME</a>
+      </div>
+    </div>
+
+    <div class="rite-band">
+      <div class="rite-col">
+        <svg width="56" height="56" viewBox="0 0 56 56" fill="none"><circle cx="28" cy="28" r="26" stroke="rgba(234,226,204,0.45)" stroke-width="1"></circle><circle cx="28" cy="28" r="20" stroke="rgba(234,226,204,0.22)" stroke-width="1"></circle><g transform="translate(16,16)" stroke="#D9A845" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c1.5 3 5 5.2 5 9a5 5 0 0 1-10 0c0-1.8.8-3.3 1.8-4.8.6 1.2 1.4 2 2.7 2.3C11 7.5 11.2 5 12 3z"></path></g></svg>
+        <h3>Burn the tribute</h3>
+        <p>Seize him by fire: the offering of $PROTEUS is destroyed forever, and every capture raises the price of the next.</p>
+        <span class="chip mono">NOW <span data-bind="next-tribute">1,680,000</span> $PROTEUS</span>
+      </div>
+      <div class="rite-col">
+        <svg width="56" height="56" viewBox="0 0 56 56" fill="none"><circle cx="28" cy="28" r="26" stroke="rgba(234,226,204,0.45)" stroke-width="1"></circle><circle cx="28" cy="28" r="20" stroke="rgba(234,226,204,0.22)" stroke-width="1"></circle><g transform="translate(16,16)" stroke="#D9A845" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l9 5v10l-9 5-9-5V7z"></path><path d="M3 7l9 5 9-5"></path><path d="M12 22V12"></path></g></svg>
+        <h3>Survive the struggle</h3>
+        <p>For 8 blocks the chain watches him writhe. The new form takes hold only when the struggle ends — no last-second disguises, no snipes.</p>
+        <span class="chip mono">8 BLOCKS ≈ 96 SECONDS</span>
+      </div>
+      <div class="rite-col">
+        <svg width="56" height="56" viewBox="0 0 56 56" fill="none"><circle cx="28" cy="28" r="26" stroke="rgba(234,226,204,0.45)" stroke-width="1"></circle><circle cx="28" cy="28" r="20" stroke="rgba(234,226,204,0.22)" stroke-width="1"></circle><g transform="translate(16,16)" stroke="#D9A845" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 18h18"></path><path d="M4 18l-1.2-8.5L8.5 13 12 6l3.5 7 5.7-3.5L20 18z"></path></g></svg>
+        <h3>Collect the tithe</h3>
+        <p>From the moment he yields, 1% of every trade streams to you in ETH — until a rival burns you out and takes the crown.</p>
+        <span class="chip mono">1% OF EVERY TRADE</span>
+      </div>
+    </div>
+
+    <div class="fee-strip mono">EVERY TRADE PAYS A 2% TITHE — <b>1%</b> THE TEMPLE · <b>1%</b> THE CAPTOR</div>
+    <p class="footnote serif-italic">Until the first capture, the full tithe rests with the Temple.</p>
+  </section>
+
+  <section class="section" id="forms">
+    <div class="section-head reveal">
+      <h2 class="serif">Every name he has worn.</h2>
+      <div class="section-side">
+        <p class="body"><span data-bind="lives-line">Seven lives so far.</span> Each row is a name someone paid to give him — and what wearing the crown returned while it lasted.</p>
+        <a class="mono link-u" href="https://etherscan.io/" target="_blank" rel="noopener">VIEW THE CONTRACT LOG</a>
+      </div>
+    </div>
+
+    <div class="ledger-scroll">
+      <div class="ledger">
+        <div class="ledger-head mono">
+          <div>FORM</div>
+          <div>NAME</div>
+          <div>CAPTOR</div>
+          <div>TRIBUTE BURNED</div>
+          <div>REIGN</div>
+          <div class="right">EARNED</div>
+        </div>
+        <div id="ledger-rows"></div>
+      </div>
+    </div>
+
+    <div class="stats-band">
+      <div class="stat">
+        <div class="stat-v serif" data-bind="form-roman">VII</div>
+        <div class="stat-l mono">FORMS TO DATE</div>
+      </div>
+      <div class="stat">
+        <div class="stat-v serif" data-bind="burned-total">3,605,000</div>
+        <div class="stat-l mono">$PROTEUS BURNED — <span data-bind="burned-pct">3.6%</span> OF SUPPLY</div>
+      </div>
+      <div class="stat">
+        <div class="stat-v serif gold" data-bind="paid-total">23.9 ETH</div>
+        <div class="stat-l mono">PAID TO CAPTORS</div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="mono">PROTEUS — A LIVING EXPERIMENT IN MUTABLE METADATA</div>
+    <div class="mono footer-links">
+      <a href="https://x.com" target="_blank" rel="noopener">X</a>
+      <a href="https://etherscan.io/" target="_blank" rel="noopener">ETHERSCAN</a>
+      <a href="https://app.uniswap.org/" target="_blank" rel="noopener">UNISWAP</a>
+    </div>
+    <div class="mono">MMXXVI</div>
+  </footer>
+  <p class="legal serif-italic">Not financial advice. The god is not responsible for the names mortals give him.</p>
+
+  <div class="meta-overlay" id="meta-overlay" aria-hidden="true">
+    <div class="meta-inner">
+      <div class="meta-label mono"><span class="live-dot gold-dot"></span> A CAPTURE IS UNDERWAY</div>
+      <div class="meta-title serif">Metamorphosis.</div>
+      <div class="meta-sub serif-italic">the god writhes between forms</div>
+      <div class="meta-swap">
+        <div class="meta-old">
+          <div class="mono strike" id="meta-old-name">GIGASQUID</div>
+          <div class="mono tiny" id="meta-old-form">FORM VII — DETHRONED</div>
+        </div>
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="rgba(234,226,204,0.5)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="M13 6l6 6-6 6"></path></svg>
+        <div class="meta-new">
+          <div class="mono gold" id="meta-new-name">? ? ? ?</div>
+          <div class="mono tiny" id="meta-new-form">FORM VIII — SEALED UNTIL BLOCK 8</div>
+        </div>
+      </div>
+      <div class="meta-progress" id="meta-progress">
+        <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+      </div>
+      <div class="mono meta-block" id="meta-block-label">BLOCK <b class="gold">0</b> OF <b class="gold">8</b></div>
+      <div class="mono meta-burn" id="meta-burn-line">0xD3M0…CA97 BURNED <b class="gold">1,680,000 $PROTEUS</b> — THE TRIBUTE IS ALREADY ASH</div>
+      <div class="mono tiny meta-esc">ESC TO ABANDON THE CAPTURE</div>
+    </div>
+  </div>
+
+  <div class="toast mono" id="toast"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
