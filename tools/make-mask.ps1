@@ -8,8 +8,8 @@
 
 param(
   [Parameter(Mandatory = $true)][string]$Silhouette,
-  [string]$Out = (Join-Path $PSScriptRoot "..\assets\proteus-mask.png"),
-  [int]$X0 = 62, [int]$Y0 = 188, [int]$X1 = 698, [int]$Y1 = 990,
+  [string]$Out = "",
+  [int]$X0 = 80, [int]$Y0 = 176, [int]$X1 = 731, [int]$Y1 = 975,
   [int]$OutW = 800, [int]$OutH = 1124,
   [int]$Threshold = 140, [int]$Dilate = 2
 )
@@ -97,6 +97,7 @@ public static class MaskMaker {
 }
 "@
 
+if (-not $Out) { $Out = Join-Path (Split-Path -Parent $MyInvocation.MyCommand.Path) "..\assets\proteus-mask.png" }
 $OutFull = [System.IO.Path]::GetFullPath($Out)
 [MaskMaker]::Make((Resolve-Path $Silhouette).Path, $OutFull, $X0, $Y0, $X1, $Y1, $OutW, $OutH, $Threshold, $Dilate)
 Write-Output ("wrote {0} ({1} bytes)" -f $OutFull, (Get-Item $OutFull).Length)
