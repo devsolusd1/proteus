@@ -215,6 +215,51 @@ document.addEventListener('keydown', (e) => {
   }
 });
 
+/* ---------- transfiguration on scroll ----------
+   Only the figure is tinted (SVG mask + mix-blend-mode: color), the paper stays.
+   The hue travels through TINT_STOPS while the plate scrolls through the viewport. */
+
+const TINT_STOPS = [
+  [78, 143, 126],  // verdigris
+  [194, 149, 58],  // ochre gold
+  [59, 110, 158],  // lapis
+  [142, 59, 74],   // oxblood
+  [108, 142, 90],  // patina green
+];
+
+const tintRect = document.getElementById('figure-tint');
+const plateSvg = document.getElementById('plate-svg');
+let tintTicking = false;
+
+function updateTint() {
+  tintTicking = false;
+  if (!tintRect || !plateSvg) return;
+  const rect = plateSvg.getBoundingClientRect();
+  const plateBottomDoc = rect.bottom + window.scrollY;
+  const range = Math.max(1, plateBottomDoc);
+  const progress = Math.min(1, Math.max(0, window.scrollY / range));
+  const opacity = Math.min(0.92, window.scrollY / 90);
+  const t = progress * (TINT_STOPS.length - 1);
+  const i = Math.min(TINT_STOPS.length - 2, Math.floor(t));
+  const f = t - i;
+  const a = TINT_STOPS[i];
+  const b = TINT_STOPS[i + 1];
+  const rgb = a.map((c, k) => Math.round(c + (b[k] - c) * f));
+  tintRect.setAttribute('fill', 'rgb(' + rgb.join(',') + ')');
+  tintRect.setAttribute('fill-opacity', opacity.toFixed(3));
+}
+
+function requestTint() {
+  if (!tintTicking) {
+    tintTicking = true;
+    requestAnimationFrame(updateTint);
+  }
+}
+
+window.addEventListener('scroll', requestTint, { passive: true });
+window.addEventListener('resize', requestTint);
+updateTint();
+
 /* ---------- reveal on scroll ---------- */
 
 const io = new IntersectionObserver((entries) => {

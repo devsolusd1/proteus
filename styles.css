@@ -131,7 +131,7 @@ a { color: var(--ink); text-decoration: none; }
 
 .plate { margin: 44px auto 0 auto; }
 
-.plate img {
+.plate-svg {
   display: block;
   width: 380px;
   max-width: 84vw;
@@ -139,6 +139,7 @@ a { color: var(--ink); text-decoration: none; }
   margin: 0 auto;
   border: 1px solid rgba(21, 65, 78, 0.35);
   box-shadow: 0 30px 70px rgba(12, 47, 58, 0.22);
+  isolation: isolate;
 }
 
 .plate figcaption {
