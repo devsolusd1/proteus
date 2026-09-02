@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Proteus — Docs</title>
+  <meta name="description" content="Why the token is called Proteus, and how the Rite of Capture, the tithe and the forms work on Robinhood Chain.">
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Manrope:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <nav class="nav">
+    <a class="wordmark" href="index.html">PROTEUS</a>
+    <div class="nav-links mono">
+      <a href="index.html#rite">THE RITE</a>
+      <a href="index.html#forms">BOOK OF FORMS</a>
+      <a href="docs.html" class="active">DOCS</a>
+      <a href="https://x.com" target="_blank" rel="noopener">X</a>
+    </div>
+    <div class="nav-right">
+      <span class="net mono"><i class="live-dot" aria-hidden="true"></i>ROBINHOOD CHAIN</span>
+      <a class="btn btn-ink mono" href="#">TRADE</a>
+    </div>
+  </nav>
+
+  <header class="docs-head">
+    <div class="label mono gold-ink">DOCUMENTATION · ROBINHOOD CHAIN</div>
+    <h1 class="serif">Why Proteus, and how he works.</h1>
+    <p class="sub serif-italic">A field guide to the shapeshifting token: the myth behind the name, the contract behind the myth.</p>
+  </header>
+
+  <div class="docs">
+    <aside class="toc mono">
+      <a href="#name">I · THE NAME</a>
+      <a href="#contract">II · ONE CONTRACT, MANY FORMS</a>
+      <a href="#rite">III · THE RITE OF CAPTURE</a>
+      <a href="#tithe">IV · THE TITHE</a>
+      <a href="#captor">V · WHAT A CAPTOR CAN DO</a>
+      <a href="#questions">VI · QUESTIONS</a>
+      <a href="#glossary">VII · GLOSSARY</a>
+    </aside>
+
+    <article class="doc">
+
+      <section class="chapter" id="name">
+        <div class="chapter-no mono">CHAPTER I</div>
+        <h2 class="serif">The name.</h2>
+        <p>Proteus is the Old Man of the Sea: a minor god in Homer's <em>Odyssey</em> who herds Poseidon's seals and knows everything — the past, the present, the way home. There is only one problem with asking him. He will not answer. Ask, and he changes shape.</p>
+        <blockquote class="quote">He became a lion, a serpent, a leopard, a boar; then running water; then a tall tree in leaf. And still they held him.
+          <cite>AFTER HOMER, ODYSSEY IV — MENELAUS ON THE ISLAND OF PHAROS</cite>
+        </blockquote>
+        <p>In the fourth book, Menelaus is stranded on Pharos on his way home from Troy. Proteus's own daughter tells him the trick: ambush the god at noon, seize him, and hold on. He will become every terrible thing he can think of. Do not let go. When he runs out of shapes and returns to his own, he must speak — and he must tell the truth.</p>
+        <p>That is the whole token. A name that will not sit still, a god that anyone may seize, and a prize that goes only to whoever holds on. English still keeps him in a word: <em>protean</em>, able to take many forms.</p>
+
+        <h3 class="serif">From the myth to the contract</h3>
+        <div class="map">
+          <div class="map-row map-head"><div>IN THE MYTH</div><div>IN THE TOKEN</div></div>
+          <div class="map-row"><div>Proteus, the shapeshifter</div><div>One contract whose name, ticker and face can change</div></div>
+          <div class="map-row"><div>His shapes: lion, serpent, water, tree</div><div>Every form he has worn — the Book of Forms</div></div>
+          <div class="map-row"><div>Menelaus seizes him</div><div>Burning the tribute</div></div>
+          <div class="map-row"><div>Holding on while he thrashes</div><div>The struggle: 480 blocks before the new form takes hold</div></div>
+          <div class="map-row"><div>He yields and speaks</div><div>The new form is written; the captor is crowned</div></div>
+          <div class="map-row"><div>The prize: the way home</div><div>The tithe: 1% of every trade, for as long as the crown lasts</div></div>
+          <div class="map-row"><div>His sea</div><div>Robinhood Chain</div></div>
+        </div>
+
+        <h3 class="serif">Proteus or Protheus?</h3>
+        <p>The engraving on the front page reads <span class="mono">PROTHEVS</span>. That is not a typo — it is sixteenth-century Latin, where V stood for U and an extra H was a fashionable way to make a Greek name look more Greek. The Greek itself is Πρωτεύς: no theta, no H. The token is <strong>Proteus</strong>. The old spelling stays on the print, where it belongs.</p>
+      </section>
+
+      <section class="chapter" id="contract">
+        <div class="chapter-no mono">CHAPTER II</div>
+        <h2 class="serif">One contract, many forms.</h2>
+        <p>Most tokens are frozen at birth: name, symbol and logo are fixed the moment the contract is deployed. Proteus deploys with those three fields left open — mutable metadata that the contract itself rewrites when the Rite is performed. Everything else is as immutable as any token on the chain.</p>
+
+        <h3 class="serif">What never changes</h3>
+        <div class="params">
+          <div class="param"><span>The contract address</span><b>FIXED</b></div>
+          <div class="param"><span>Your balance</span><b>FIXED</b></div>
+          <div class="param"><span>The liquidity</span><b>FIXED</b></div>
+          <div class="param"><span>The fee rules and the split</span><b>FIXED</b></div>
+          <div class="param"><span>The total supply</span><b>ONLY SHRINKS</b></div>
+        </div>
+
+        <h3 class="serif">What changes</h3>
+        <div class="params">
+          <div class="param"><span>The name</span><b>SET BY THE CAPTOR</b></div>
+          <div class="param"><span>The ticker</span><b>SET BY THE CAPTOR</b></div>
+          <div class="param"><span>The face</span><b>SET BY THE CAPTOR</b></div>
+        </div>
+        <p>Change the name and you have not touched a single balance. <span class="mono">$SQUID</span>, <span class="mono">$PROTEUS</span> and whatever comes next are the same asset at the same address.</p>
+
+        <div class="note">
+          <span class="mono">HOW OTHERS SEE HIM</span>
+          This site reads the contract live and is the stage where the current form is shown, face included. Explorers, wallets and charting sites read the name and ticker from the same contract, but many cache what they saw first and refresh on their own schedule — expect them to lag a few minutes to a few days behind a capture. The address never lags.
+        </div>
+      </section>
+
+      <section class="chapter" id="rite">
+        <div class="chapter-no mono">CHAPTER III</div>
+        <h2 class="serif">The Rite of Capture.</h2>
+        <p>Anyone holding <span class="mono">$PROTEUS</span> may perform the Rite. It has three parts, and the contract enforces all of them.</p>
+
+        <h3 class="serif">1 · The tribute</h3>
+        <p>To seize the god you burn <span class="mono">$PROTEUS</span> — send it to the void, permanently. The amount is the current tribute, shown live on the front page. Each successful capture multiplies the next tribute by 1.4, so the crown gets more expensive with every hand that has held it. Nothing burned ever returns: the supply shrinks with every form he takes.</p>
+
+        <h3 class="serif">2 · The struggle</h3>
+        <p>The burn does not rename him on the spot. For 480 blocks — about two minutes on Robinhood Chain — the capture is sealed: the new name, ticker and face are locked in but not yet shown, and no rival can start another capture. The delay exists so that no one can flip the name in the same breath as a trade. Everyone sees the struggle; no one can snipe it.</p>
+
+        <h3 class="serif">3 · The reign</h3>
+        <p>When the last block passes, the god yields. The contract writes the new name, ticker and face, and the captor's address becomes the Captor: from that block on, half of the tithe on every trade streams to it in ETH. There is no term. The reign ends only when someone else burns the next tribute and holds on through their own struggle.</p>
+
+        <div class="params">
+          <div class="param"><span>Tribute escalation</span><b>× 1.4 PER CAPTURE</b></div>
+          <div class="param"><span>Struggle</span><b>480 BLOCKS ≈ 2 MIN</b></div>
+          <div class="param"><span>Captor's share of the tithe</span><b>1% OF EVERY TRADE</b></div>
+          <div class="param"><span>Temple's share of the tithe</span><b>1% OF EVERY TRADE</b></div>
+          <div class="param"><span>Opening tribute</span><b>SET AT DEPLOY</b></div>
+          <div class="param"><span>Name and ticker length</span><b>CAPPED AT DEPLOY</b></div>
+        </div>
+      </section>
+
+      <section class="chapter" id="tithe">
+        <div class="chapter-no mono">CHAPTER IV</div>
+        <h2 class="serif">The tithe.</h2>
+        <p>Every trade of <span class="mono">$PROTEUS</span> pays a 2% tithe, split down the middle: one percent to the Temple, one percent to the Captor. The Captor's share is paid continuously, trade by trade, in ETH — there is no prize to claim and nothing to stake. Until the very first capture there is no Captor, and the full tithe rests with the Temple.</p>
+
+        <h3 class="serif">What the Temple does with its half</h3>
+        <p>The Temple is the founding team's treasury. Its share keeps the pool deep, funds the rituals — this site, the art, the events around each new form — and pays for the development of the contract and the tools around it.</p>
+      </section>
+
+      <section class="chapter" id="captor">
+        <div class="chapter-no mono">CHAPTER V</div>
+        <h2 class="serif">What a captor can do.</h2>
+        <p>A captor owns the god's face, not his body. Everything that could hurt a holder — supply, fees, liquidity, balances — is out of the Rite's reach by design.</p>
+        <div class="map">
+          <div class="map-row map-head"><div>A CAPTOR CAN</div><div>A CAPTOR CANNOT</div></div>
+          <div class="map-row"><div>Set the name</div><div>Mint tokens</div></div>
+          <div class="map-row"><div>Set the ticker</div><div>Pause or block trades</div></div>
+          <div class="map-row"><div>Set the face</div><div>Touch the liquidity</div></div>
+          <div class="map-row"><div>Collect 1% of every trade</div><div>Change the fees or the split</div></div>
+          <div class="map-row"><div>Be dethroned by the next tribute</div><div>Move anyone's balance, or refund the tribute</div></div>
+        </div>
+
+        <h3 class="serif">On names</h3>
+        <p>Names and tickers are capped in length by the contract. This site renders them as plain text, exactly as written — no markup, no tricks. The chain does not censor. Choose a name you would be happy to have burned a great deal of money for.</p>
+      </section>
+
+      <section class="chapter" id="questions">
+        <div class="chapter-no mono">CHAPTER VI</div>
+        <h2 class="serif">Questions.</h2>
+        <div class="faq">
+          <details>
+            <summary>The name changed. Did my tokens change?</summary>
+            <p>No. Same contract, same balance, same liquidity — only the metadata moved. If your wallet still shows the old ticker, it has cached it; the address is what matters.</p>
+          </details>
+          <details>
+            <summary>Can I capture him more than once?</summary>
+            <p>As often as you can pay. Each capture costs 1.4× the last one, whoever performed it.</p>
+          </details>
+          <details>
+            <summary>Can someone capture him back immediately?</summary>
+            <p>Only by burning the next, larger tribute and sitting through their own 480-block struggle. While a struggle is running, no one can start another.</p>
+          </details>
+          <details>
+            <summary>Is the tribute refundable?</summary>
+            <p>No. The burn happens first and is ash the moment the transaction confirms. There is no abandoning a capture — only the struggle, then the reign.</p>
+          </details>
+          <details>
+            <summary>Where does the Captor's ETH come from?</summary>
+            <p>From the tithe on each trade, streamed to the Captor's address as trades happen. Nothing to claim, nothing to stake, nothing to be front-run.</p>
+          </details>
+          <details>
+            <summary>What if nobody captures him for a long time?</summary>
+            <p>The reign simply continues and the Captor keeps collecting. The tribute stays where the last capture left it.</p>
+          </details>
+          <details>
+            <summary>Is this financial advice?</summary>
+            <p>No. It is a myth with a contract attached. Read the contract, mind the tithe, and never burn what you cannot afford to lose.</p>
+          </details>
+        </div>
+      </section>
+
+      <section class="chapter" id="glossary">
+        <div class="chapter-no mono">CHAPTER VII</div>
+        <h2 class="serif">Glossary.</h2>
+        <dl class="gloss">
+          <div><dt>FORM</dt><dd>One incarnation of the token: a name, a ticker and a face, numbered in the order they were worn.</dd></div>
+          <div><dt>THE RITE</dt><dd>The full act of renaming him — tribute, struggle, reign.</dd></div>
+          <div><dt>TRIBUTE</dt><dd>The amount of $PROTEUS burned to seize him. Rises 1.4× with every capture.</dd></div>
+          <div><dt>STRUGGLE</dt><dd>The 480 blocks between the burn and the moment the new form takes hold.</dd></div>
+          <div><dt>CAPTOR</dt><dd>The address that last completed the Rite. Receives 1% of every trade until dethroned.</dd></div>
+          <div><dt>REIGN</dt><dd>The time a form stands — from the end of its struggle to the end of the next.</dd></div>
+          <div><dt>TITHE</dt><dd>The 2% taken on every trade and split between the Temple and the Captor.</dd></div>
+          <div><dt>TEMPLE</dt><dd>The founding team's treasury; keeps the other 1%, and all of it before the first capture.</dd></div>
+          <div><dt>FACE</dt><dd>The image attached to the current form, shown on this site.</dd></div>
+          <div><dt>GENESIS</dt><dd>Form I — Proteus himself, before any mortal named him.</dd></div>
+        </dl>
+      </section>
+
+    </article>
+  </div>
+
+  <footer class="footer">
+    <div class="mono">PROTEUS — A LIVING EXPERIMENT IN MUTABLE METADATA · ROBINHOOD CHAIN</div>
+    <div class="mono footer-links">
+      <a href="https://x.com" target="_blank" rel="noopener">X</a>
+      <a href="#">EXPLORER</a>
+      <a href="#">TRADE</a>
+    </div>
+    <div class="mono">MMXXVI</div>
+  </footer>
+  <p class="legal serif-italic">Not financial advice. The god is not responsible for the names mortals give him.</p>
+
+</body>
+</html>

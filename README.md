@@ -17,6 +17,7 @@ Abre em **http://localhost:4173**.
 ## O que tem
 
 - `index.html` / `styles.css` / `app.js` — a página inteira; estado do token em JS com `data-bind`s.
+- `docs.html` — a documentação: o mito por trás do nome, o que muda e o que nunca muda, o Rito em três passos, o dízimo, o que um Captor pode fazer, FAQ e glossário.
 - **CAPTURE HIM** roda uma simulação local da metamorfose: 8 blocks de delay, nome novo aleatório, ledger ganha linha, tributo sobe 1.4×. `Esc` abandona; recarregar reseta.
 - `assets/proteus-plate.jpg` — gravura "PROTHEVS" (séc. XVI, domínio público).
 
