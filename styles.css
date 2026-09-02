@@ -129,17 +129,38 @@ a { color: var(--ink); text-decoration: none; }
   font-weight: 400;
 }
 
-.plate { margin: 194px auto 0 auto; }
+.plate { margin: 44px auto 0 auto; }
 
-.plate-svg {
-  display: block;
+.plate-frame {
+  position: relative;
   width: 380px;
   max-width: 84vw;
-  height: auto;
   margin: 0 auto;
   border: 1px solid rgba(21, 65, 78, 0.35);
   box-shadow: 0 30px 70px rgba(12, 47, 58, 0.22);
   isolation: isolate;
+  line-height: 0;
+}
+
+.plate-img { display: block; width: 100%; height: auto; }
+
+/* Only the figure gets tinted: the alpha mask is the exact silhouette, stretched to the image box. */
+.plate-tint {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgb(78, 143, 126);
+  opacity: 0;
+  mix-blend-mode: color;
+  pointer-events: none;
+  -webkit-mask-image: url(assets/proteus-mask.png);
+  mask-image: url(assets/proteus-mask.png);
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
 }
 
 .plate figcaption {

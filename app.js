@@ -228,13 +228,13 @@ const TINT_STOPS = [
 ];
 
 const tintRect = document.getElementById('figure-tint');
-const plateSvg = document.getElementById('plate-svg');
+const plateFrame = document.getElementById('plate-frame');
 let tintTicking = false;
 
 function updateTint() {
   tintTicking = false;
-  if (!tintRect || !plateSvg) return;
-  const rect = plateSvg.getBoundingClientRect();
+  if (!tintRect || !plateFrame) return;
+  const rect = plateFrame.getBoundingClientRect();
   const plateBottomDoc = rect.bottom + window.scrollY;
   const range = Math.max(1, plateBottomDoc);
   const progress = Math.min(1, Math.max(0, window.scrollY / range));
@@ -245,8 +245,8 @@ function updateTint() {
   const a = TINT_STOPS[i];
   const b = TINT_STOPS[i + 1];
   const rgb = a.map((c, k) => Math.round(c + (b[k] - c) * f));
-  tintRect.setAttribute('fill', 'rgb(' + rgb.join(',') + ')');
-  tintRect.setAttribute('fill-opacity', opacity.toFixed(3));
+  tintRect.style.backgroundColor = 'rgb(' + rgb.join(',') + ')';
+  tintRect.style.opacity = opacity.toFixed(3);
 }
 
 function requestTint() {

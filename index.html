@@ -37,18 +37,10 @@
   <header class="hero" id="top">
     <h1 class="hero-title serif">THE GOD OF<br>A THOUSAND FORMS</h1>
     <figure class="plate reveal">
-      <svg class="plate-svg" id="plate-svg" viewBox="0 0 800 1124" role="img" aria-label="Protheus, copper engraving, 16th century">
-        <defs>
-          <filter id="figure-feather" x="-5%" y="-5%" width="110%" height="110%">
-            <feGaussianBlur stdDeviation="2.5"></feGaussianBlur>
-          </filter>
-          <mask id="figure-mask" maskUnits="userSpaceOnUse" x="0" y="0" width="800" height="1124">
-            <image href="assets/proteus-mask.png" x="0" y="0" width="800" height="1124" filter="url(#figure-feather)"></image>
-          </mask>
-        </defs>
-        <image href="assets/proteus-plate.jpg" x="0" y="0" width="800" height="1124"></image>
-        <rect id="figure-tint" x="0" y="0" width="800" height="1124" fill="hsl(170, 70%, 50%)" fill-opacity="0" mask="url(#figure-mask)" style="mix-blend-mode: color;"></rect>
-      </svg>
+      <div class="plate-frame" id="plate-frame">
+        <img class="plate-img" src="assets/proteus-plate.jpg" alt="Protheus, copper engraving, 16th century" width="800" height="1124">
+        <div class="plate-tint" id="figure-tint" aria-hidden="true"></div>
+      </div>
       <figcaption class="mono">PROTHEVS — COPPER ENGRAVING, 16TH CENTURY</figcaption>
     </figure>
   </header>
