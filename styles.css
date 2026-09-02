@@ -144,7 +144,31 @@ a { color: var(--ink); text-decoration: none; }
   font-weight: 400;
 }
 
-.plate { margin: 44px auto 0 auto; }
+.plate { position: relative; margin: 44px auto 0 auto; }
+
+/* The god's other shapes drift beside the plate; multiply blends their white paper into ours. */
+.visions { position: absolute; top: 0; left: 50%; width: 380px; margin-left: -190px; height: 100%; pointer-events: none; }
+
+.vision {
+  position: absolute;
+  height: 250px;
+  width: auto;
+  mix-blend-mode: multiply;
+  opacity: 0.9;
+  transform: rotate(var(--r));
+  animation: drift var(--d) ease-in-out infinite;
+  animation-delay: var(--delay);
+}
+
+.vision-1 { left: -440px; top: -10px; height: 265px; --r: -5deg; --d: 9s; --delay: 0s; }
+.vision-2 { right: -430px; top: 20px; height: 250px; --r: 4deg; --d: 11s; --delay: -3s; }
+.vision-3 { left: -400px; top: 290px; height: 245px; --r: 3deg; --d: 10s; --delay: -5s; }
+.vision-4 { right: -405px; top: 300px; height: 255px; --r: -4deg; --d: 8s; --delay: -2s; }
+
+@keyframes drift {
+  0%, 100% { transform: translateY(0) rotate(var(--r)); }
+  50% { transform: translateY(-12px) rotate(calc(var(--r) + 1.5deg)); }
+}
 
 .plate-frame {
   position: relative;
@@ -596,7 +620,7 @@ a { color: var(--ink); text-decoration: none; }
 
 .reveal { opacity: 0; transform: translateY(14px); transition: opacity 0.7s ease, transform 0.7s ease; }
 
-.reveal.in { opacity: 1; transform: translateY(0); }
+.reveal.in { opacity: 1; transform: none; }
 
 /* ---------- responsive ---------- */
 
@@ -613,6 +637,7 @@ a { color: var(--ink); text-decoration: none; }
   .stats-band { grid-template-columns: 1fr; }
   .stat + .stat { border-left: none; border-top: 1px solid var(--hair-paper); }
   .net { display: none; }
+  .visions { display: none; }
   .feature { grid-template-columns: 1fr; padding: 28px; gap: 28px; }
   .feature-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .history-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
