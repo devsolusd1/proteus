@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Proteus — The God of a Thousand Forms</title>
-  <meta name="description" content="The shapeshifting ERC-20. Burn a tribute to rename the god and collect 1% of every trade until a rival captures him from you.">
+  <meta name="description" content="The shapeshifting token of Robinhood Chain. Burn a tribute to rename the god and collect 1% of every trade until a rival captures him from you.">
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -20,7 +20,10 @@
       <a href="#forms">BOOK OF FORMS</a>
       <a href="https://x.com" target="_blank" rel="noopener">X</a>
     </div>
-    <a class="btn btn-ink mono" href="https://app.uniswap.org/" target="_blank" rel="noopener">BUY <span data-bind="ticker">$SQUID</span> ON UNISWAP</a>
+    <div class="nav-right">
+      <span class="net mono"><i class="live-dot" aria-hidden="true"></i>ROBINHOOD CHAIN</span>
+      <a class="btn btn-ink mono" href="#">TRADE <span data-bind="ticker">$SQUID</span></a>
+    </div>
   </nav>
 
   <div class="utility mono">
@@ -52,7 +55,7 @@
       <p class="panel-sub serif-italic"><span data-bind="form-line">form № VII — captured two days ago</span></p>
     </div>
     <div class="panel-right">
-      <p class="body">One contract, endless disguises. Burn a tribute of $PROTEUS to rename the god — name, ticker and face — and collect 1% of every trade until a rival captures him from you. He keeps the same address through every life.</p>
+      <p class="body">One contract on Robinhood Chain, endless disguises. Burn a tribute of $PROTEUS to rename the god — name, ticker and face — and collect 1% of every trade until a rival captures him from you. He keeps the same address through every life.</p>
       <div class="panel-stats mono">
         <span>CAPTOR <span data-bind="captor">0x3aF9…c2E1</span></span>
         <span>EARNED <b class="gold" data-bind="earned">4.31 ETH</b></span>
@@ -90,8 +93,8 @@
       <div class="rite-col">
         <svg width="56" height="56" viewBox="0 0 56 56" fill="none"><circle cx="28" cy="28" r="26" stroke="rgba(234,226,204,0.45)" stroke-width="1"></circle><circle cx="28" cy="28" r="20" stroke="rgba(234,226,204,0.22)" stroke-width="1"></circle><g transform="translate(16,16)" stroke="#D9A845" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l9 5v10l-9 5-9-5V7z"></path><path d="M3 7l9 5 9-5"></path><path d="M12 22V12"></path></g></svg>
         <h3>Survive the struggle</h3>
-        <p>For 8 blocks the chain watches him writhe. The new form takes hold only when the struggle ends — no last-second disguises, no snipes.</p>
-        <span class="chip mono">8 BLOCKS ≈ 96 SECONDS</span>
+        <p>For 480 blocks — about two minutes on Robinhood Chain — the network watches him writhe. The new form takes hold only when the struggle ends: no last-second disguises, no snipes.</p>
+        <span class="chip mono">480 BLOCKS ≈ 2 MINUTES</span>
       </div>
       <div class="rite-col">
         <svg width="56" height="56" viewBox="0 0 56 56" fill="none"><circle cx="28" cy="28" r="26" stroke="rgba(234,226,204,0.45)" stroke-width="1"></circle><circle cx="28" cy="28" r="20" stroke="rgba(234,226,204,0.22)" stroke-width="1"></circle><g transform="translate(16,16)" stroke="#D9A845" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 18h18"></path><path d="M4 18l-1.2-8.5L8.5 13 12 6l3.5 7 5.7-3.5L20 18z"></path></g></svg>
@@ -109,24 +112,18 @@
     <div class="section-head reveal">
       <h2 class="serif">Every name he has worn.</h2>
       <div class="section-side">
-        <p class="body"><span data-bind="lives-line">Seven lives so far.</span> Each row is a name someone paid to give him — and what wearing the crown returned while it lasted.</p>
-        <a class="mono link-u" href="https://etherscan.io/" target="_blank" rel="noopener">VIEW THE CONTRACT LOG</a>
+        <p class="body">Each form is a name someone paid to give him — with the face they chose for him, and what wearing the crown returned while it lasted. The current one reigns until the next tribute burns.</p>
+        <a class="mono link-u" href="#">VIEW THE CONTRACT ON THE EXPLORER</a>
       </div>
     </div>
 
-    <div class="ledger-scroll">
-      <div class="ledger">
-        <div class="ledger-head mono">
-          <div>FORM</div>
-          <div>NAME</div>
-          <div>CAPTOR</div>
-          <div>TRIBUTE BURNED</div>
-          <div>REIGN</div>
-          <div class="right">EARNED</div>
-        </div>
-        <div id="ledger-rows"></div>
-      </div>
+    <div class="feature" id="current-form"></div>
+
+    <div class="history-head">
+      <h3 class="serif">Past forms</h3>
+      <span class="mono history-count" data-bind="lives-line">Seven lives so far.</span>
     </div>
+    <div class="history-grid" id="history-grid"></div>
 
     <div class="stats-band">
       <div class="stat">
@@ -145,11 +142,11 @@
   </section>
 
   <footer class="footer">
-    <div class="mono">PROTEUS — A LIVING EXPERIMENT IN MUTABLE METADATA</div>
+    <div class="mono">PROTEUS — A LIVING EXPERIMENT IN MUTABLE METADATA · ROBINHOOD CHAIN</div>
     <div class="mono footer-links">
       <a href="https://x.com" target="_blank" rel="noopener">X</a>
-      <a href="https://etherscan.io/" target="_blank" rel="noopener">ETHERSCAN</a>
-      <a href="https://app.uniswap.org/" target="_blank" rel="noopener">UNISWAP</a>
+      <a href="#">EXPLORER</a>
+      <a href="#">TRADE</a>
     </div>
     <div class="mono">MMXXVI</div>
   </footer>
@@ -168,13 +165,13 @@
         <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="rgba(234,226,204,0.5)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="M13 6l6 6-6 6"></path></svg>
         <div class="meta-new">
           <div class="mono gold" id="meta-new-name">? ? ? ?</div>
-          <div class="mono tiny" id="meta-new-form">FORM VIII — SEALED UNTIL BLOCK 8</div>
+          <div class="mono tiny" id="meta-new-form">FORM VIII — SEALED UNTIL BLOCK 480</div>
         </div>
       </div>
       <div class="meta-progress" id="meta-progress">
         <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
       </div>
-      <div class="mono meta-block" id="meta-block-label">BLOCK <b class="gold">0</b> OF <b class="gold">8</b></div>
+      <div class="mono meta-block" id="meta-block-label">BLOCK <b class="gold">0</b> OF <b class="gold">480</b></div>
       <div class="mono meta-burn" id="meta-burn-line">0xD3M0…CA97 BURNED <b class="gold">1,680,000 $PROTEUS</b> — THE TRIBUTE IS ALREADY ASH</div>
       <div class="mono tiny meta-esc">ESC TO ABANDON THE CAPTURE</div>
     </div>
