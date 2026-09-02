@@ -9,7 +9,7 @@
 param(
   [Parameter(Mandatory = $true)][string]$Silhouette,
   [string]$Out = "",
-  [int]$X0 = 80, [int]$Y0 = 176, [int]$X1 = 731, [int]$Y1 = 975,
+  [int]$X0 = 62, [int]$Y0 = 186, [int]$X1 = 718, [int]$Y1 = 1022,
   [int]$OutW = 800, [int]$OutH = 1124,
   [int]$Threshold = 140, [int]$Dilate = 2, [int]$Feather = 2
 )
