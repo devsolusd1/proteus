@@ -11,7 +11,8 @@ param(
   [string]$Out = "",
   [int]$X0 = 62, [int]$Y0 = 186, [int]$X1 = 718, [int]$Y1 = 1022,
   [int]$OutW = 800, [int]$OutH = 1124,
-  [int]$Threshold = 140, [int]$Dilate = 2, [int]$Feather = 2
+  [int]$Threshold = 140, [int]$Dilate = 2, [int]$Feather = 2,
+  [double]$ShiftTop = 12, [double]$ShiftBottom = 0
 )
 
 Add-Type -AssemblyName System.Drawing
@@ -22,7 +23,7 @@ using System.Drawing.Imaging;
 using System.Runtime.InteropServices;
 
 public static class MaskMaker {
-  public static string Make(string inPath, string outPath, int tx0, int ty0, int tx1, int ty1, int outW, int outH, int threshold, int dilate, int feather) {
+  public static string Make(string inPath, string outPath, int tx0, int ty0, int tx1, int ty1, int outW, int outH, int threshold, int dilate, int feather, double shiftTop, double shiftBottom) {
     Bitmap src = new Bitmap(inPath);
     int w = src.Width, h = src.Height;
     byte[] px = new byte[w * h * 4];
@@ -79,12 +80,17 @@ public static class MaskMaker {
     // Alpha mask (opaque inside the figure), feathered with a small box blur so the edge does not alias.
     byte[] alpha = new byte[outW * outH];
     double sx = (double)(maxx - minx + 1) / (tx1 - tx0), sy = (double)(maxy - miny + 1) / (ty1 - ty0);
-    for (int y = 0; y < outH; y++)
+    // shiftTop/shiftBottom: extra horizontal offset (output px) at the top and bottom of the target box,
+    // interpolated by height — corrects a silhouette whose upper body sits off relative to its feet.
+    for (int y = 0; y < outH; y++) {
+      double t = Math.Max(0, Math.Min(1, (double)(y - ty0) / (ty1 - ty0)));
+      double shift = shiftTop + (shiftBottom - shiftTop) * t;
       for (int x = 0; x < outW; x++) {
-        int ix = (int)Math.Floor(minx + (x - tx0) * sx), iy = (int)Math.Floor(miny + (y - ty0) * sy);
+        int ix = (int)Math.Floor(minx + (x - shift - tx0) * sx), iy = (int)Math.Floor(miny + (y - ty0) * sy);
         bool inside = ix >= 0 && iy >= 0 && ix < w && iy < h && !outside[iy * w + ix];
         alpha[y * outW + x] = inside ? (byte)255 : (byte)0;
       }
+    }
     if (feather > 0) {
       int[] tmp = new int[outW * outH];
       for (int pass = 0; pass < 2; pass++) {
@@ -119,5 +125,5 @@ public static class MaskMaker {
 
 if (-not $Out) { $Out = Join-Path (Split-Path -Parent $MyInvocation.MyCommand.Path) "..\assets\proteus-mask.png" }
 $OutFull = [System.IO.Path]::GetFullPath($Out)
-[MaskMaker]::Make((Resolve-Path $Silhouette).Path, $OutFull, $X0, $Y0, $X1, $Y1, $OutW, $OutH, $Threshold, $Dilate, $Feather)
+[MaskMaker]::Make((Resolve-Path $Silhouette).Path, $OutFull, $X0, $Y0, $X1, $Y1, $OutW, $OutH, $Threshold, $Dilate, $Feather, $ShiftTop, $ShiftBottom)
 Write-Output ("wrote {0} ({1} bytes)" -f $OutFull, (Get-Item $OutFull).Length)
