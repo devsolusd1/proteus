@@ -25,6 +25,7 @@
       <div class="nav-right">
         <span class="net mono"><i class="dot" aria-hidden="true"></i>Robinhood Chain</span>
         <a class="btn btn-secondary" href="#">Trade <span data-bind="ticker">$SQUID</span></a>
+        <button class="btn btn-secondary" id="connect-btn" type="button">Connect wallet</button>
       </div>
     </div>
   </nav>
@@ -192,8 +193,56 @@
     </div>
   </div>
 
+  <div class="overlay" id="buy-overlay" aria-hidden="true">
+    <form class="modal modal-form" id="buy-form" novalidate>
+      <div class="modal-top">
+        <div class="eyebrow mono"><i class="dot"></i>BUY THE NAME</div>
+        <button type="button" class="buy-wallet mono" id="buy-wallet">Connect wallet</button>
+      </div>
+      <div class="modal-title small">Name the market.</div>
+      <label class="field">
+        <span class="mono">NAME</span>
+        <input id="buy-name" type="text" autocomplete="off" spellcheck="false" placeholder="e.g. Loud Money">
+        <small class="mono"><span id="buy-name-count">0</span>/<span id="buy-name-max">32</span></small>
+      </label>
+      <label class="field">
+        <span class="mono">TICKER</span>
+        <div class="ticker-input"><b>$</b><input id="buy-ticker" type="text" autocomplete="off" spellcheck="false" placeholder="LOUD"></div>
+      </label>
+      <label class="field">
+        <span class="mono">LOGO URL · OPTIONAL</span>
+        <input id="buy-image" type="url" autocomplete="off" spellcheck="false" placeholder="https://… or ipfs://…">
+      </label>
+      <div class="buy-summary mono">
+        <div><span>YOU BURN</span><b id="buy-price">1,680,000 $ATTN</b></div>
+        <div><span>YOUR BALANCE</span><b id="buy-balance">—</b></div>
+        <div><span>SETTLES IN</span><b>480 BLOCKS ≈ 2 MIN</b></div>
+        <div><span>YOU EARN</span><b>1% OF EVERY TRADE</b></div>
+      </div>
+      <div class="buy-status mono" id="buy-status"></div>
+      <div class="modal-actions">
+        <button type="button" class="btn btn-secondary" id="buy-cancel">Cancel</button>
+        <button type="submit" class="btn btn-primary btn-inline" id="buy-submit"><span>Burn &amp; buy the name</span></button>
+      </div>
+      <p class="note mono" id="buy-mode-note">demo mode — nothing is sent on-chain until the contract ships</p>
+    </form>
+  </div>
+
+  <div class="overlay" id="wallet-overlay" aria-hidden="true">
+    <div class="modal modal-form">
+      <div class="eyebrow mono"><i class="dot"></i>WALLET</div>
+      <div class="modal-title small" id="wallet-title">Choose a wallet</div>
+      <div class="wallet-list" id="wallet-list"></div>
+      <div class="modal-actions"><button type="button" class="btn btn-secondary" id="wallet-cancel">Close</button></div>
+    </div>
+  </div>
+
   <div class="toast mono" id="toast"></div>
 
+  <script src="https://cdn.jsdelivr.net/npm/ethers@6.13.4/dist/ethers.umd.min.js"></script>
+  <script src="config.js"></script>
   <script src="app.js"></script>
+  <script src="wallet.js"></script>
+  <script src="market.js"></script>
 </body>
 </html>

@@ -1,24 +1,12 @@
-/* ATTENTION MARKETS — front-end state & buying simulation.
-   All values are sample data until the contract ships on Robinhood Chain. */
+/* ATTENTION MARKETS — state, rendering and the settlement overlay.
+   market.js drives the buy flow (demo or live) through window.AM.
+   Sample data below is replaced by the chain snapshot in live mode. */
 
 const ROMAN = ['', 'I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X', 'XI', 'XII', 'XIII', 'XIV', 'XV', 'XVI', 'XVII', 'XVIII', 'XIX', 'XX'];
 const WORDS = ['', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten', 'Eleven', 'Twelve'];
+const roman = (n) => ROMAN[n] || String(n);
 
-const CA_FULL = '0x0000000000000000000000000000000000000000';
-const TOTAL_SUPPLY = 100000000;
-const DELAY_BLOCKS = 480;      // settlement: ~250 ms blocks on Robinhood Chain ≈ 2 minutes
-const BLOCK_SECONDS = 0.25;
-const SEGMENTS = 8;
-const PACE_MS = 1000;          // demo pace per segment (60 blocks)
-
-const NEXT_FORMS = [
-  { name: 'Chrome Leviathan', ticker: '$LEVI' },
-  { name: 'Salt Prophet', ticker: '$BRINE' },
-  { name: 'Moon Kraken', ticker: '$KRKN' },
-  { name: 'Ivory Serpent', ticker: '$FANG' },
-  { name: 'Gilded Barnacle', ticker: '$GILD' },
-  { name: 'Loud Money', ticker: '$LOUD' },
-];
+const CA_FULL = (window.AM_CONFIG && window.AM_CONFIG.contract.address) || '0x0000000000000000000000000000000000000000';
 
 const state = {
   formNo: 7,
@@ -30,23 +18,34 @@ const state = {
   nextTribute: 1680000,
   burned: 3605000,
   paidTotal: 23.9,
+  totalSupply: 100000000,
+  pending: false,
   ledger: [
-    { no: 7, name: 'Gigasquid', ticker: '$SQUID', emblem: 'squid', captor: '0x3aF9…c2E1', tribute: 1200000, reign: '2d 06h', counting: true, earned: 4.31 },
-    { no: 6, name: 'Abyss Frog', ticker: '$CROAK', emblem: 'frog', captor: '0x81dE…09bb', tribute: 850000, reign: '1d 20h', counting: false, earned: 2.87 },
-    { no: 5, name: 'Chrome Pigeon', ticker: '$COO', emblem: 'pigeon', captor: '0xC44a…7f1D', tribute: 610000, reign: '4d 02h', counting: false, earned: 5.02 },
-    { no: 4, name: 'Saltlord', ticker: '$SALT', emblem: 'salt', captor: '0x9E02…44Aa', tribute: 430000, reign: '0d 09h', counting: false, earned: 1.1 },
-    { no: 3, name: 'Mercury Maxi', ticker: '$HG', emblem: 'mercury', captor: '0x5b77…d301', tribute: 300000, reign: '3d 11h', counting: false, earned: 3.66 },
-    { no: 2, name: 'Seawolf', ticker: '$SWOLF', emblem: 'wolf', captor: '0xAb1C…9E77', tribute: 215000, reign: '6d 08h', counting: false, earned: 6.9 },
-    { no: 1, name: 'Attention Markets', ticker: '$ATTN', emblem: 'eye', captor: null, tribute: null, reign: '3d 02h', counting: false, earned: null },
+    { no: 7, name: 'Gigasquid', ticker: '$SQUID', emblem: 'squid', image: null, captor: '0x3aF9…c2E1', tribute: 1200000, reign: '2d 06h', counting: true, earned: 4.31 },
+    { no: 6, name: 'Abyss Frog', ticker: '$CROAK', emblem: 'frog', image: null, captor: '0x81dE…09bb', tribute: 850000, reign: '1d 20h', counting: false, earned: 2.87 },
+    { no: 5, name: 'Chrome Pigeon', ticker: '$COO', emblem: 'pigeon', image: null, captor: '0xC44a…7f1D', tribute: 610000, reign: '4d 02h', counting: false, earned: 5.02 },
+    { no: 4, name: 'Saltlord', ticker: '$SALT', emblem: 'salt', image: null, captor: '0x9E02…44Aa', tribute: 430000, reign: '0d 09h', counting: false, earned: 1.1 },
+    { no: 3, name: 'Mercury Maxi', ticker: '$HG', emblem: 'mercury', image: null, captor: '0x5b77…d301', tribute: 300000, reign: '3d 11h', counting: false, earned: 3.66 },
+    { no: 2, name: 'Seawolf', ticker: '$SWOLF', emblem: 'wolf', image: null, captor: '0xAb1C…9E77', tribute: 215000, reign: '6d 08h', counting: false, earned: 6.9 },
+    { no: 1, name: 'Attention Markets', ticker: '$ATTN', emblem: 'eye', image: null, captor: null, tribute: null, reign: '3d 02h', counting: false, earned: null },
   ],
 };
 
-const fmt = (n) => n.toLocaleString('en-US');
-const eth = (n) => n.toFixed(2) + ' ETH';
+const fmt = (n) => Math.round(n).toLocaleString('en-US');
+const eth = (n) => Number(n).toFixed(2) + ' ETH';
 const $ = (sel) => document.querySelector(sel);
 const $$ = (sel) => document.querySelectorAll(sel);
+const esc = (s) => String(s == null ? '' : s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 
-/* ---------- logos (the mark each sponsor gave the name; line art until real uploads exist) ---------- */
+// Only http(s) images are rendered; ipfs:// goes through the configured gateway.
+function safeImage(url) {
+  if (!url) return '';
+  let u = String(url).trim();
+  if (u.startsWith('ipfs://')) u = ((window.AM_CONFIG && window.AM_CONFIG.ipfsGateway) || 'https://ipfs.io/ipfs/') + u.slice(7);
+  return /^https?:\/\/[^\s"'<>]+$/i.test(u) ? u : '';
+}
+
+/* ---------- logos (line art used when a name has no image) ---------- */
 
 const GLYPHS = {
   squid: '<path d="M12 3c-3.6 0-5.5 2.6-5.5 6v3.5h11V9c0-3.4-1.9-6-5.5-6z"></path>'
@@ -73,7 +72,7 @@ const GLYPHS = {
 
 function hueOf(str) {
   let h = 7;
-  for (const c of str) h = (h * 31 + c.charCodeAt(0)) % 360;
+  for (const c of String(str)) h = (h * 31 + c.charCodeAt(0)) % 360;
   return h;
 }
 
@@ -83,18 +82,19 @@ function tileStyle(seed) {
 }
 
 function glyphHTML(form) {
+  const img = safeImage(form.image);
+  if (img) return '<img class="tile-img" src="' + esc(img) + '" alt="">';
   if (GLYPHS[form.emblem]) {
     return '<svg class="tile-glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">' + GLYPHS[form.emblem] + '</svg>';
   }
-  return '<span class="sigil">' + form.ticker.replace('$', '').slice(0, 2) + '</span>';
+  return '<span class="sigil">' + esc(String(form.ticker || '').replace('$', '').slice(0, 2)) + '</span>';
 }
 
 /* ---------- hero ---------- */
 
 function renderHero(animate) {
   const f = state.ledger[0];
-  const tile = $('#hero-tile');
-  tile.setAttribute('style', tileStyle(f.ticker + f.name));
+  $('#hero-tile').setAttribute('style', tileStyle(f.ticker + f.name));
   $('#hero-glyph').innerHTML = glyphHTML(f);
   const nameEl = $('#hero-name');
   nameEl.textContent = f.name;
@@ -112,17 +112,17 @@ function gcardHTML(f, isNow) {
   const genesis = f.captor === null;
   return '<article class="gcard' + (isNow ? ' now' : '') + '">'
     + '<div class="gtile" style="' + tileStyle(f.ticker + f.name) + '">' + glyphHTML(f)
-    + '<span class="gbadge mono">' + (isNow ? 'NOW TRADING' : 'NAME ' + ROMAN[f.no] + (genesis ? ' · GENESIS' : '')) + '</span></div>'
-    + '<div class="gname">' + f.name + '</div>'
-    + '<div class="gticker mono">' + f.ticker + '</div>'
+    + '<span class="gbadge mono">' + (isNow ? 'NOW TRADING' : 'NAME ' + roman(f.no) + (genesis ? ' · GENESIS' : '')) + '</span></div>'
+    + '<div class="gname">' + esc(f.name) + '</div>'
+    + '<div class="gticker mono">' + esc(f.ticker) + '</div>'
     + '<div class="grows mono">'
-    + '<div class="grow"><span>SPONSOR</span><span>' + (genesis ? 'the house' : f.captor) + '</span></div>'
+    + '<div class="grow"><span>SPONSOR</span><span>' + (genesis ? 'the house' : esc(f.captor)) + '</span></div>'
     + '<div class="grow"><span>BID</span><span>' + (genesis ? '—' : fmt(f.tribute) + ' $ATTN') + '</span></div>'
-    + '<div class="grow"><span>HELD</span><span>' + f.reign + (f.counting ? ' · live' : '') + '</span></div>'
+    + '<div class="grow"><span>HELD</span><span>' + esc(f.reign) + (f.counting ? ' · live' : '') + '</span></div>'
     + '</div>'
     + (genesis
       ? '<span class="gearn none mono">NO SPONSOR, NO FEE</span>'
-      : '<span class="gearn mono">' + eth(f.earned) + ' EARNED</span>')
+      : '<span class="gearn mono">' + eth(f.earned || 0) + ' EARNED</span>')
     + '</article>';
 }
 
@@ -135,14 +135,14 @@ function renderGallery() {
 function renderState() {
   const binds = {
     'ticker': state.ticker,
-    'form-roman': ROMAN[state.formNo],
+    'form-roman': roman(state.formNo),
     'next-tribute': fmt(state.nextTribute),
     'earned': eth(state.earned),
     'captor': state.captor,
-    'burned-pct': (state.burned / TOTAL_SUPPLY * 100).toFixed(1) + '%',
+    'burned-pct': (state.burned / state.totalSupply * 100).toFixed(1) + '%',
     'burned-total': fmt(state.burned),
-    'paid-total': state.paidTotal.toFixed(1) + ' ETH',
-    'form-line': 'Name No. ' + ROMAN[state.formNo] + ' — ' + state.capturedAgo,
+    'paid-total': Number(state.paidTotal).toFixed(1) + ' ETH',
+    'form-line': 'Name No. ' + roman(state.formNo) + ' — ' + state.capturedAgo,
     'lives-line': (WORDS[state.formNo] || state.formNo) + ' names so far.',
     'held': state.ledger[0].reign,
   };
@@ -152,7 +152,13 @@ function renderState() {
   document.title = 'Attention Markets — now trading as ' + state.ticker;
 }
 
-/* ---------- toast & copy ---------- */
+function renderAll() {
+  renderState();
+  renderHero(false);
+  renderGallery();
+}
+
+/* ---------- toast ---------- */
 
 let toastTimer;
 function toast(msg) {
@@ -160,76 +166,49 @@ function toast(msg) {
   t.textContent = msg;
   t.classList.add('show');
   clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => t.classList.remove('show'), 2600);
+  toastTimer = setTimeout(() => t.classList.remove('show'), 2800);
 }
 
 $('#ca-btn').addEventListener('click', () => {
   navigator.clipboard.writeText(CA_FULL).then(
-    () => toast('PLACEHOLDER CA COPIED — REAL ONE COMES WITH THE DEPLOY'),
+    () => toast(/^0x0+$/.test(CA_FULL) ? 'PLACEHOLDER CA COPIED — REAL ONE COMES WITH THE DEPLOY' : 'CONTRACT ADDRESS COPIED'),
     () => toast('COULD NOT COPY')
   );
 });
 
-$('#sponsor-copy').addEventListener('click', () => {
-  navigator.clipboard.writeText(state.captor).then(
-    () => toast('SPONSOR ADDRESS COPIED (SAMPLE)'),
-    () => toast('COULD NOT COPY')
-  );
-});
-
-/* ---------- buying simulation ---------- */
+/* ---------- settlement overlay (driven by market.js) ---------- */
 
 const overlay = $('#meta-overlay');
-let captureTimer = null;
+let cancelHandler = null;
 
-function pickNextForm() {
-  const pool = NEXT_FORMS.filter((f) => f.ticker !== state.ticker);
-  return pool[Math.floor(Math.random() * pool.length)];
-}
-
-function blockLabel(block) {
-  const eta = Math.ceil((DELAY_BLOCKS - block) * BLOCK_SECONDS);
-  return 'BLOCK ' + block + ' OF ' + DELAY_BLOCKS + ' · SETTLES IN ≈ ' + eta + ' S';
-}
-
-function startCapture() {
-  if (captureTimer) return;
-  const next = pickNextForm();
-  const tribute = state.nextTribute;
-
+function openSettling(next, bid, buyer) {
   $('#meta-old-name').textContent = state.name.toUpperCase();
-  $('#meta-old-form').textContent = 'NAME ' + ROMAN[state.formNo] + ' — OUTBID';
+  $('#meta-old-form').textContent = 'NAME ' + roman(state.formNo) + ' — OUTBID';
   $('#meta-new-name').textContent = '? ? ? ?';
-  $('#meta-new-form').textContent = 'NAME ' + ROMAN[state.formNo + 1] + ' — SEALED UNTIL BLOCK ' + DELAY_BLOCKS;
+  $('#meta-new-form').textContent = 'NAME ' + roman(state.formNo + 1) + ' — SEALED UNTIL SETTLEMENT';
   $('#meta-new-box').classList.remove('revealed');
-  $('#meta-burn-line').textContent = '0xD3M0…CA97 BURNED ' + fmt(tribute) + ' $ATTN — THE BID IS NON-REFUNDABLE';
+  $('#meta-burn-line').textContent = buyer + ' BURNED ' + fmt(bid) + ' $ATTN — THE BID IS NON-REFUNDABLE';
   $('#meta-fill').style.width = '0%';
-  $('#meta-block-label').textContent = blockLabel(0);
-
+  $('#meta-block-label').textContent = 'WAITING FOR THE FIRST BLOCK';
+  state.pending = true;
   overlay.classList.add('open');
   overlay.setAttribute('aria-hidden', 'false');
   document.body.style.overflow = 'hidden';
-
-  let seg = 0;
-  captureTimer = setInterval(() => {
-    seg += 1;
-    $('#meta-fill').style.width = (seg / SEGMENTS * 100) + '%';
-    $('#meta-block-label').textContent = blockLabel(Math.round(seg * DELAY_BLOCKS / SEGMENTS));
-    if (seg >= SEGMENTS) {
-      clearInterval(captureTimer);
-      captureTimer = null;
-      revealForm(next, tribute);
-    }
-  }, PACE_MS);
 }
 
-function revealForm(next, tribute) {
+function settlingProgress(frac, label) {
+  $('#meta-fill').style.width = (Math.max(0, Math.min(1, frac)) * 100) + '%';
+  if (label) $('#meta-block-label').textContent = label;
+}
+
+function finishSettling(next, bid, buyer, applyLocally) {
   $('#meta-new-name').textContent = next.name.toUpperCase() + ' · ' + next.ticker;
   $('#meta-new-box').classList.add('revealed');
-  $('#meta-new-form').textContent = 'NAME ' + ROMAN[state.formNo + 1] + ' — SETTLED';
+  $('#meta-new-form').textContent = 'NAME ' + roman(state.formNo + 1) + ' — SETTLED';
+  $('#meta-fill').style.width = '100%';
   setTimeout(() => {
     closeOverlay();
-    applyCapture(next, tribute);
+    if (applyLocally) applyCapture(next, bid, buyer);
     toast('THE MARKET HAS A NEW NAME');
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, 1800);
@@ -239,17 +218,20 @@ function closeOverlay() {
   overlay.classList.remove('open');
   overlay.setAttribute('aria-hidden', 'true');
   document.body.style.overflow = '';
+  state.pending = false;
+  cancelHandler = null;
 }
 
-function applyCapture(next, tribute) {
+function applyCapture(next, bid, buyer) {
   state.ledger[0].counting = false;
   state.ledger.unshift({
     no: state.formNo + 1,
     name: next.name,
     ticker: next.ticker,
     emblem: 'sigil',
-    captor: '0xD3M0…CA97',
-    tribute: tribute,
+    image: next.image || null,
+    captor: buyer,
+    tribute: bid,
     reign: '0d 00h',
     counting: true,
     earned: 0,
@@ -257,28 +239,36 @@ function applyCapture(next, tribute) {
   state.formNo += 1;
   state.name = next.name;
   state.ticker = next.ticker;
-  state.captor = '0xD3M0…CA97';
+  state.captor = buyer;
   state.earned = 0;
   state.capturedAgo = 'bought moments ago';
-  state.burned += tribute;
+  state.burned += bid;
   state.nextTribute = Math.round(state.nextTribute * 1.4 / 1000) * 1000;
-  renderState();
+  renderAll();
   renderHero(true);
-  renderGallery();
 }
 
-$('#capture-btn').addEventListener('click', startCapture);
+// Live mode: replace the sample state with what the contract says.
+function applyLiveSnapshot(snap) {
+  Object.assign(state, snap);
+  if (!state.ledger || !state.ledger.length) return;
+  renderAll();
+}
 
 document.addEventListener('keydown', (e) => {
   if (e.key === 'Escape' && overlay.classList.contains('open')) {
-    if (captureTimer) { clearInterval(captureTimer); captureTimer = null; }
-    closeOverlay();
-    toast('DEMO CANCELLED — ON-CHAIN, A BID CANNOT BE');
+    if (cancelHandler) cancelHandler();
+    else closeOverlay();
   }
 });
 
+window.AM = {
+  state, roman, fmt, eth, esc, toast,
+  renderAll, renderHero,
+  openSettling, settlingProgress, finishSettling, closeOverlay, applyCapture, applyLiveSnapshot,
+  setCancel(fn) { cancelHandler = fn; },
+};
+
 /* ---------- init ---------- */
 
-renderState();
-renderHero(false);
-renderGallery();
+renderAll();

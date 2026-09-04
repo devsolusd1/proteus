@@ -21,6 +21,17 @@ Abre em **http://localhost:4173**.
 - **BUY THE NAME** roda uma simulação local da compra: 480 blocos de settlement, nome novo aleatório, o painel gira, o ledger ganha entrada, o preço sobe 1.4×. `Esc` cancela; recarregar reseta.
 - `docs.html` — a documentação: a tese (atenção como ativo, naming rights), o que muda e o que nunca muda, como um nome é comprado (bid → settlement → sponsorship), a attention fee, o que um Sponsor pode fazer, FAQ e glossário.
 
+## Integração com wallet e contrato
+
+O fluxo de compra já está montado nos dois modos, controlados por `config.js`:
+
+- **`mode: 'demo'`** (atual) — mesmo formulário (nome, ticker, logo), mesma tela de settlement; nada é enviado. Se uma wallet estiver conectada, o endereço dela aparece como sponsor na simulação.
+- **`mode: 'live'`** — o site lê `currentName / attentionPrice / nameAt…` do contrato via RPC, escuta os eventos, e o botão manda `buyName(name, symbol, image)` pela wallet, acompanhando o settlement bloco a bloco.
+
+Arquivos: `config.js` (chain, endereço, ABI, limites), `wallet.js` (EIP-6963 — MetaMask, Rabby, Coinbase, Phantom… com seletor; troca/adição de rede; reconexão silenciosa), `market.js` (modal de compra, validação, envio da tx, polling do settlement, adaptador de leitura). A interface esperada do contrato está em **`CONTRACT.md`**.
+
+Pra ir ao ar: preencher em `config.js` o `chain.id`, `rpcUrls`, `blockExplorerUrls` e `contract.address`, conferir a ABI contra o contrato final, e trocar `mode` pra `'live'`. A lib `ethers` v6 é carregada por CDN (jsdelivr) — pra produção vale vendorizar o arquivo em `assets/`.
+
 ## Léxico
 
 | Termo | Significa |
