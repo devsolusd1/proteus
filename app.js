@@ -1,4 +1,4 @@
-/* PROTEUS — front-end state & capture simulation.
+/* ATTENTION MARKETS — front-end state & buying simulation.
    All values are sample data until the contract ships on Robinhood Chain. */
 
 const ROMAN = ['', 'I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X', 'XI', 'XII', 'XIII', 'XIV', 'XV', 'XVI', 'XVII', 'XVIII', 'XIX', 'XX'];
@@ -6,10 +6,12 @@ const WORDS = ['', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight
 
 const CA_FULL = '0x0000000000000000000000000000000000000000';
 const TOTAL_SUPPLY = 100000000;
-const DELAY_BLOCKS = 480;      // the struggle: ~250 ms blocks on Robinhood Chain ≈ 2 minutes
+const DELAY_BLOCKS = 480;      // settlement: ~250 ms blocks on Robinhood Chain ≈ 2 minutes
 const BLOCK_SECONDS = 0.25;
 const SEGMENTS = 8;
 const PACE_MS = 1000;          // demo pace per segment (60 blocks)
+const BOARD_TILES = 16;
+const BOARD_CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 ';
 
 const NEXT_FORMS = [
   { name: 'Chrome Leviathan', ticker: '$LEVI' },
@@ -17,7 +19,7 @@ const NEXT_FORMS = [
   { name: 'Moon Kraken', ticker: '$KRKN' },
   { name: 'Ivory Serpent', ticker: '$FANG' },
   { name: 'Gilded Barnacle', ticker: '$GILD' },
-  { name: 'Abyss Oracle', ticker: '$OMEN' },
+  { name: 'Loud Money', ticker: '$LOUD' },
 ];
 
 const state = {
@@ -26,7 +28,7 @@ const state = {
   ticker: '$SQUID',
   captor: '0x3aF9…c2E1',
   earned: 4.31,
-  capturedAgo: 'captured two days ago',
+  capturedAgo: 'bought two days ago',
   nextTribute: 1680000,
   burned: 3605000,
   paidTotal: 23.9,
@@ -37,7 +39,7 @@ const state = {
     { no: 4, name: 'Saltlord', ticker: '$SALT', emblem: 'salt', captor: '0x9E02…44Aa', tribute: 430000, reign: '0d 09h', counting: false, earned: 1.1 },
     { no: 3, name: 'Mercury Maxi', ticker: '$HG', emblem: 'mercury', captor: '0x5b77…d301', tribute: 300000, reign: '3d 11h', counting: false, earned: 3.66 },
     { no: 2, name: 'Seawolf', ticker: '$SWOLF', emblem: 'wolf', captor: '0xAb1C…9E77', tribute: 215000, reign: '6d 08h', counting: false, earned: 6.9 },
-    { no: 1, name: 'Proteus', ticker: '$PROTEUS', emblem: 'genesis', captor: null, tribute: null, reign: '3d 02h', counting: false, earned: null },
+    { no: 1, name: 'Attention Markets', ticker: '$ATTN', emblem: 'eye', captor: null, tribute: null, reign: '3d 02h', counting: false, earned: null },
   ],
 };
 
@@ -46,7 +48,7 @@ const eth = (n) => n.toFixed(2) + ' ETH';
 const $ = (sel) => document.querySelector(sel);
 const $$ = (sel) => document.querySelectorAll(sel);
 
-/* ---------- emblems (the face each captor gave him; line art until real uploads exist) ---------- */
+/* ---------- logos (the mark each sponsor gave the name; line art until real uploads exist) ---------- */
 
 const GLYPHS = {
   squid: '<path d="M12 3c-3.6 0-5.5 2.6-5.5 6v3.5h11V9c0-3.4-1.9-6-5.5-6z"></path>'
@@ -67,15 +69,14 @@ const GLYPHS = {
   wolf: '<path d="M6 4l3 5h6l3-5v8c0 4-2.5 7-6 8-3.5-1-6-4-6-8z"></path>'
     + '<circle cx="9.8" cy="11" r=".7" fill="currentColor"></circle><circle cx="14.2" cy="11" r=".7" fill="currentColor"></circle>'
     + '<path d="M12 14l-1.2 1.5h2.4z" fill="currentColor"></path>',
+  eye: '<path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6S2 12 2 12z"></path>'
+    + '<circle cx="12" cy="12" r="3"></circle>',
 };
 
 function medalHTML(form, size, gold) {
-  let cls = 'medal' + (gold ? ' medal-gold' : '');
+  const cls = 'medal' + (gold ? ' medal-gold' : '');
   let inner;
-  if (form.emblem === 'genesis') {
-    cls += ' medal-genesis';
-    inner = '<div class="medal-face" style="background-image: url(assets/proteus-plate.jpg); background-size: ' + (size * 4) + 'px auto; background-position: ' + (-2.2 * size) + 'px ' + (-0.748 * size) + 'px;"></div>';
-  } else if (GLYPHS[form.emblem]) {
+  if (GLYPHS[form.emblem]) {
     inner = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">' + GLYPHS[form.emblem] + '</svg>';
   } else {
     inner = '<span class="medal-sigil serif" style="font-size: ' + Math.round(size * 0.36) + 'px;">' + form.ticker.replace('$', '').slice(0, 2) + '</span>';
@@ -83,7 +84,45 @@ function medalHTML(form, size, gold) {
   return '<div class="' + cls + '" style="width: ' + size + 'px; height: ' + size + 'px;">' + inner + '</div>';
 }
 
-/* ---------- book of forms ---------- */
+/* ---------- the board ---------- */
+
+function boardText(name) {
+  const t = name.toUpperCase().slice(0, BOARD_TILES);
+  const pad = BOARD_TILES - t.length;
+  const left = Math.floor(pad / 2);
+  return ' '.repeat(left) + t + ' '.repeat(pad - left);
+}
+
+function tileChar(c) { return c === ' ' ? ' ' : c; }
+
+function renderBoard(name, animate) {
+  const row = $('#board-tiles');
+  const text = boardText(name);
+  if (!row.children.length) {
+    row.innerHTML = text.split('').map((c) => '<span class="tile">' + tileChar(c) + '</span>').join('');
+    return;
+  }
+  const tiles = [...row.children];
+  if (!animate) {
+    tiles.forEach((tile, i) => { tile.textContent = tileChar(text[i]); });
+    return;
+  }
+  tiles.forEach((tile, i) => {
+    let steps = 6 + Math.floor(i / 2);
+    const iv = setInterval(() => {
+      tile.classList.remove('flip');
+      void tile.offsetWidth;
+      tile.classList.add('flip');
+      steps -= 1;
+      tile.textContent = steps > 0
+        ? BOARD_CHARS[Math.floor(Math.random() * BOARD_CHARS.length)]
+        : tileChar(text[i]);
+      if (steps <= 0) clearInterval(iv);
+    }, 75);
+  });
+}
+
+/* ---------- the ledger ---------- */
 
 function fstat(label, value, gold) {
   return '<div class="fstat"><div class="fstat-l">' + label + '</div><div class="fstat-v' + (gold ? ' gold-ink' : '') + '">' + value + '</div></div>';
@@ -93,17 +132,17 @@ function renderCurrent() {
   const f = state.ledger[0];
   $('#current-form').innerHTML = medalHTML(f, 220, true)
     + '<div class="feature-body">'
-    + '<div class="feature-label mono">REIGNING · FORM ' + ROMAN[f.no] + ' · ' + state.capturedAgo.toUpperCase() + '</div>'
+    + '<div class="feature-label mono">NOW TRADING · NAME ' + ROMAN[f.no] + ' · ' + state.capturedAgo.toUpperCase() + '</div>'
     + '<div class="feature-name"><span class="serif">' + f.name + '</span><span class="mono feature-ticker">' + f.ticker + '</span></div>'
     + '<div class="feature-stats mono">'
-    + fstat('CAPTOR', f.captor)
-    + fstat('TRIBUTE BURNED', fmt(f.tribute) + ' $PROTEUS')
-    + fstat('REIGNING FOR', f.reign + ' · counting')
+    + fstat('SPONSOR', f.captor)
+    + fstat('BID BURNED', fmt(f.tribute) + ' $ATTN')
+    + fstat('HOLDING FOR', f.reign + ' · counting')
     + fstat('EARNED SO FAR', eth(f.earned), true)
-    + fstat('NEXT CAPTURE COSTS', fmt(state.nextTribute) + ' $PROTEUS')
-    + fstat('FACE', 'set by the captor')
+    + fstat('NEXT BID', fmt(state.nextTribute) + ' $ATTN')
+    + fstat('LOGO', 'set by the sponsor')
     + '</div>'
-    + '<a class="mono link-u feature-link" href="#rite">HOW TO TAKE THE CROWN</a>'
+    + '<a class="mono link-u feature-link" href="#how">HOW TO BUY THE NAME</a>'
     + '</div>';
 }
 
@@ -114,15 +153,15 @@ function cardRow(label, value) {
 function cardHTML(f) {
   const genesis = f.captor === null;
   return '<article class="form-card">' + medalHTML(f, 96, false)
-    + '<div class="card-no mono">FORM ' + ROMAN[f.no] + (genesis ? ' · GENESIS' : '') + '</div>'
+    + '<div class="card-no mono">NAME ' + ROMAN[f.no] + (genesis ? ' · GENESIS' : '') + '</div>'
     + '<div class="card-name serif">' + f.name + '</div>'
     + '<div class="card-ticker mono">' + f.ticker + '</div>'
     + '<div class="card-stats mono">'
-    + cardRow('CAPTOR', genesis ? 'unnamed by mortals' : f.captor)
-    + cardRow('TRIBUTE', genesis ? '—' : fmt(f.tribute) + ' $PROTEUS')
-    + cardRow('REIGN', f.reign)
+    + cardRow('SPONSOR', genesis ? 'the house, unsponsored' : f.captor)
+    + cardRow('BID', genesis ? '—' : fmt(f.tribute) + ' $ATTN')
+    + cardRow('HELD', f.reign)
     + '</div>'
-    + '<div class="card-earned">' + (genesis ? '<span class="none mono">no captor, no tithe</span>' : '<span class="echip">' + eth(f.earned) + ' EARNED</span>') + '</div>'
+    + '<div class="card-earned">' + (genesis ? '<span class="none mono">no sponsor, no fee</span>' : '<span class="echip">' + eth(f.earned) + ' EARNED</span>') + '</div>'
     + '</article>';
 }
 
@@ -140,14 +179,13 @@ function renderState() {
     'burned-pct': (state.burned / TOTAL_SUPPLY * 100).toFixed(1) + '%',
     'burned-total': fmt(state.burned),
     'paid-total': state.paidTotal.toFixed(1) + ' ETH',
-    'name-serif': state.name + '.',
-    'form-line': 'form № ' + ROMAN[state.formNo] + ' — ' + state.capturedAgo,
-    'lives-line': (WORDS[state.formNo] || state.formNo) + ' lives so far.',
+    'form-line': 'name No. ' + ROMAN[state.formNo] + ' — ' + state.capturedAgo,
+    'lives-line': (WORDS[state.formNo] || state.formNo) + ' names so far.',
   };
   Object.keys(binds).forEach((key) => {
     $$('[data-bind="' + key + '"]').forEach((el) => { el.textContent = binds[key]; });
   });
-  document.title = 'Proteus — currently ' + state.ticker;
+  document.title = 'Attention Markets — now trading as ' + state.ticker;
 }
 
 /* ---------- toast ---------- */
@@ -170,7 +208,7 @@ $('#ca-btn').addEventListener('click', () => {
   );
 });
 
-/* ---------- capture simulation ---------- */
+/* ---------- buying simulation ---------- */
 
 const overlay = $('#meta-overlay');
 let captureTimer = null;
@@ -182,7 +220,7 @@ function pickNextForm() {
 
 function blockLabel(block) {
   const eta = Math.ceil((DELAY_BLOCKS - block) * BLOCK_SECONDS);
-  return 'BLOCK <b class="gold">' + block + '</b> OF <b class="gold">' + DELAY_BLOCKS + '</b> · NEW FORM IN <b class="gold">≈ ' + eta + ' S</b>';
+  return 'BLOCK <b class="gold">' + block + '</b> OF <b class="gold">' + DELAY_BLOCKS + '</b> · SETTLES IN <b class="gold">≈ ' + eta + ' S</b>';
 }
 
 function startCapture() {
@@ -191,11 +229,11 @@ function startCapture() {
   const tribute = state.nextTribute;
 
   $('#meta-old-name').textContent = state.name.toUpperCase();
-  $('#meta-old-form').textContent = 'FORM ' + ROMAN[state.formNo] + ' — DETHRONED';
+  $('#meta-old-form').textContent = 'NAME ' + ROMAN[state.formNo] + ' — OUTBID';
   $('#meta-new-name').textContent = '? ? ? ?';
-  $('#meta-new-form').textContent = 'FORM ' + ROMAN[state.formNo + 1] + ' — SEALED UNTIL BLOCK ' + DELAY_BLOCKS;
+  $('#meta-new-form').textContent = 'NAME ' + ROMAN[state.formNo + 1] + ' — SEALED UNTIL BLOCK ' + DELAY_BLOCKS;
   $('#meta-new-name').parentElement.classList.remove('revealed');
-  $('#meta-burn-line').innerHTML = '0xD3M0…CA97 BURNED <b class="gold">' + fmt(tribute) + ' $PROTEUS</b> — THE TRIBUTE IS ALREADY ASH';
+  $('#meta-burn-line').innerHTML = '0xD3M0…CA97 BURNED <b class="gold">' + fmt(tribute) + ' $ATTN</b> — THE BID IS NON-REFUNDABLE';
   $$('#meta-progress i').forEach((seg) => seg.classList.remove('on'));
   $('#meta-block-label').innerHTML = blockLabel(0);
 
@@ -221,11 +259,11 @@ function revealForm(next, tribute) {
   const box = $('#meta-new-name');
   box.textContent = next.name.toUpperCase() + ' · ' + next.ticker;
   box.parentElement.classList.add('revealed');
-  $('#meta-new-form').textContent = 'FORM ' + ROMAN[state.formNo + 1] + ' — HE YIELDS';
+  $('#meta-new-form').textContent = 'NAME ' + ROMAN[state.formNo + 1] + ' — SETTLED';
   setTimeout(() => {
     closeOverlay();
     applyCapture(next, tribute);
-    toast('THE GOD WEARS A NEW NAME');
+    toast('THE MARKET HAS A NEW NAME');
     $('#skin').scrollIntoView({ behavior: 'smooth', block: 'center' });
   }, 2000);
 }
@@ -254,10 +292,11 @@ function applyCapture(next, tribute) {
   state.ticker = next.ticker;
   state.captor = '0xD3M0…CA97';
   state.earned = 0;
-  state.capturedAgo = 'captured moments ago';
+  state.capturedAgo = 'bought moments ago';
   state.burned += tribute;
   state.nextTribute = Math.round(state.nextTribute * 1.4 / 1000) * 1000;
   renderState();
+  renderBoard(state.name, true);
   renderCurrent();
   renderHistory();
 }
@@ -268,54 +307,9 @@ document.addEventListener('keydown', (e) => {
   if (e.key === 'Escape' && overlay.classList.contains('open')) {
     if (captureTimer) { clearInterval(captureTimer); captureTimer = null; }
     closeOverlay();
-    toast('THE GOD SLIPPED AWAY — TRIBUTE SPARED (DEMO)');
+    toast('DEMO CANCELLED — ON-CHAIN, A BID CANNOT BE');
   }
 });
-
-/* ---------- transfiguration on scroll ----------
-   Only the figure is tinted (alpha mask + mix-blend-mode: color), the paper stays.
-   The tint travels through TINT_STOPS while the plate scrolls through the viewport. */
-
-const TINT_STOPS = [
-  [78, 143, 126],  // verdigris
-  [194, 149, 58],  // ochre gold
-  [59, 110, 158],  // lapis
-  [142, 59, 74],   // oxblood
-  [108, 142, 90],  // patina green
-];
-
-const tintRect = document.getElementById('figure-tint');
-const plateFrame = document.getElementById('plate-frame');
-let tintTicking = false;
-
-function updateTint() {
-  tintTicking = false;
-  if (!tintRect || !plateFrame) return;
-  const rect = plateFrame.getBoundingClientRect();
-  const plateBottomDoc = rect.bottom + window.scrollY;
-  const range = Math.max(1, plateBottomDoc);
-  const progress = Math.min(1, Math.max(0, window.scrollY / range));
-  const opacity = Math.min(0.92, window.scrollY / 90);
-  const t = progress * (TINT_STOPS.length - 1);
-  const i = Math.min(TINT_STOPS.length - 2, Math.floor(t));
-  const f = t - i;
-  const a = TINT_STOPS[i];
-  const b = TINT_STOPS[i + 1];
-  const rgb = a.map((c, k) => Math.round(c + (b[k] - c) * f));
-  tintRect.style.backgroundColor = 'rgb(' + rgb.join(',') + ')';
-  tintRect.style.opacity = opacity.toFixed(3);
-}
-
-function requestTint() {
-  if (!tintTicking) {
-    tintTicking = true;
-    requestAnimationFrame(updateTint);
-  }
-}
-
-window.addEventListener('scroll', requestTint, { passive: true });
-window.addEventListener('resize', requestTint);
-updateTint();
 
 /* ---------- reveal on scroll ---------- */
 
@@ -333,5 +327,6 @@ $$('.reveal').forEach((el) => io.observe(el));
 /* ---------- init ---------- */
 
 renderState();
+renderBoard(state.name, false);
 renderCurrent();
 renderHistory();
