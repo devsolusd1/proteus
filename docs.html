@@ -8,32 +8,34 @@
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Manrope:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700;12..96,800&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
   <nav class="nav">
-    <a class="wordmark" href="index.html">ATTENTION MARKETS</a>
-    <div class="nav-links mono">
-      <a href="index.html#how">HOW IT WORKS</a>
-      <a href="index.html#ledger">THE LEDGER</a>
-      <a href="docs.html" class="active">DOCS</a>
-      <a href="https://x.com" target="_blank" rel="noopener">X</a>
-    </div>
-    <div class="nav-right">
-      <span class="net mono"><i class="live-dot" aria-hidden="true"></i>ROBINHOOD CHAIN</span>
-      <a class="btn btn-ink mono" href="#">TRADE</a>
+    <div class="container nav-inner">
+      <a class="logo" href="index.html"><span class="logo-mark" aria-hidden="true"></span>Attention Markets</a>
+      <div class="nav-links">
+        <a href="index.html#how">How it works</a>
+        <a href="index.html#gallery">Gallery</a>
+        <a href="docs.html" class="active">Docs</a>
+        <a href="https://x.com" target="_blank" rel="noopener">X</a>
+      </div>
+      <div class="nav-right">
+        <span class="net mono"><i class="dot" aria-hidden="true"></i>Robinhood Chain</span>
+        <a class="btn btn-secondary" href="#">Trade</a>
+      </div>
     </div>
   </nav>
 
-  <header class="docs-head">
-    <div class="label mono gold-ink">DOCUMENTATION · ROBINHOOD CHAIN</div>
-    <h1 class="serif">Why Attention Markets, and how it works.</h1>
-    <p class="sub serif-italic">A field guide to the token that sells its own name: the thesis behind the brand, the contract behind the thesis.</p>
+  <header class="docs-head container">
+    <div class="eyebrow mono">DOCUMENTATION · ROBINHOOD CHAIN</div>
+    <h1>Why Attention Markets, and how it works.</h1>
+    <p class="sub">A field guide to the token that sells its own name: the thesis behind the brand, the contract behind the thesis.</p>
   </header>
 
-  <div class="docs">
+  <div class="docs container">
     <aside class="toc mono">
       <a href="#thesis">I · THE THESIS</a>
       <a href="#contract">II · ONE CONTRACT, MANY NAMES</a>
@@ -48,7 +50,7 @@
 
       <section class="chapter" id="thesis">
         <div class="chapter-no mono">CHAPTER I</div>
-        <h2 class="serif">The thesis.</h2>
+        <h2>The thesis.</h2>
         <p>Every token is a bid for attention. Most of them spend their attention on marketing and hope it turns into a price. This one skips the middleman: it sells the attention directly, and the price is public.</p>
         <p>The most visible surface a token has is its name, its ticker and its logo — the three things every wallet, chart and explorer repeats a thousand times a day. Attention Markets puts those three things up for sale. Whoever burns the most <span class="mono">$ATTN</span> owns them, and is paid for owning them: one percent of every trade, for as long as the name stands.</p>
         <blockquote class="quote">Naming rights are the oldest attention market there is. Stadiums have been renamed for a fee since the sixties. This is the same trade, at the speed of a block.
@@ -56,7 +58,7 @@
         </blockquote>
         <p>Two things make it different from a billboard. The bid is paid by burning the asset itself, so every purchase of attention makes the supply smaller. And the buyer does not merely get seen — they get paid for being seen, out of the trades their name attracts. The name is a billboard that pays its owner rent.</p>
 
-        <h3 class="serif">From the market to the contract</h3>
+        <h3>From the market to the contract</h3>
         <div class="map">
           <div class="map-row map-head"><div>IN AN ATTENTION MARKET</div><div>IN THE TOKEN</div></div>
           <div class="map-row"><div>Naming rights</div><div>The name, ticker and logo of one contract</div></div>
@@ -68,16 +70,16 @@
           <div class="map-row"><div>The venue</div><div>Robinhood Chain</div></div>
         </div>
 
-        <h3 class="serif">Why the brand is not the name</h3>
+        <h3>Why the brand is not the name</h3>
         <p>The token's name is the product being sold, so it cannot also be the brand — it will be <span class="mono">$SQUID</span> one week and something else the next. <strong>Attention Markets</strong> is the market. The names are what it sells.</p>
       </section>
 
       <section class="chapter" id="contract">
         <div class="chapter-no mono">CHAPTER II</div>
-        <h2 class="serif">One contract, many names.</h2>
+        <h2>One contract, many names.</h2>
         <p>Most tokens are frozen at birth: name, symbol and logo are fixed the moment the contract is deployed. Attention Markets deploys with those three fields left open — mutable metadata that the contract itself rewrites when a bid settles. Everything else is as immutable as any token on the chain.</p>
 
-        <h3 class="serif">What never changes</h3>
+        <h3>What never changes</h3>
         <div class="params">
           <div class="param"><span>The contract address</span><b>FIXED</b></div>
           <div class="param"><span>Your balance</span><b>FIXED</b></div>
@@ -86,7 +88,7 @@
           <div class="param"><span>The total supply</span><b>ONLY SHRINKS</b></div>
         </div>
 
-        <h3 class="serif">What changes</h3>
+        <h3>What changes</h3>
         <div class="params">
           <div class="param"><span>The name</span><b>SET BY THE SPONSOR</b></div>
           <div class="param"><span>The ticker</span><b>SET BY THE SPONSOR</b></div>
@@ -102,16 +104,16 @@
 
       <section class="chapter" id="buying">
         <div class="chapter-no mono">CHAPTER III</div>
-        <h2 class="serif">How a name is bought.</h2>
+        <h2>How a name is bought.</h2>
         <p>Anyone holding <span class="mono">$ATTN</span> may buy the name. The purchase has three parts, and the contract enforces all of them.</p>
 
-        <h3 class="serif">1 · The bid</h3>
+        <h3>1 · The bid</h3>
         <p>To buy the name you burn <span class="mono">$ATTN</span> — send it to the void, permanently. The amount is the current attention price, shown live on the front page. Each sale multiplies the next price by 1.4, so the name gets more expensive with every hand that has held it. Nothing burned ever returns: the supply shrinks with every name the market buys.</p>
 
-        <h3 class="serif">2 · Settlement</h3>
+        <h3>2 · Settlement</h3>
         <p>The burn does not rename the token on the spot. For 480 blocks — about two minutes on Robinhood Chain — the sale is sealed: the new name, ticker and logo are locked in but not yet shown, and no rival can start another purchase. The delay exists so that no one can flip the name in the same breath as a trade. Everyone sees the sale settle; no one can snipe it.</p>
 
-        <h3 class="serif">3 · The sponsorship</h3>
+        <h3>3 · The sponsorship</h3>
         <p>When the last block passes, the contract writes the new name, ticker and logo, and the buyer's address becomes the Sponsor: from that block on, half of the attention fee on every trade streams to it in ETH. There is no term. The sponsorship ends only when someone else burns the next, larger bid and sits through their own settlement.</p>
 
         <div class="params">
@@ -126,16 +128,16 @@
 
       <section class="chapter" id="fee">
         <div class="chapter-no mono">CHAPTER IV</div>
-        <h2 class="serif">The attention fee.</h2>
+        <h2>The attention fee.</h2>
         <p>Every trade of <span class="mono">$ATTN</span> pays a 2% attention fee, split down the middle: one percent to the house, one percent to the sponsor. The sponsor's share is paid continuously, trade by trade, in ETH — there is nothing to claim and nothing to stake. Until the very first name is bought there is no sponsor, and the full fee rests with the house.</p>
 
-        <h3 class="serif">What the house does with its half</h3>
+        <h3>What the house does with its half</h3>
         <p>The house is the founding team's treasury. Its share keeps the pool deep, funds the market itself — this site, the art, the moments around each new name — and pays for the development of the contract and the tools around it.</p>
       </section>
 
       <section class="chapter" id="sponsor">
         <div class="chapter-no mono">CHAPTER V</div>
-        <h2 class="serif">What a sponsor can do.</h2>
+        <h2>What a sponsor can do.</h2>
         <p>A sponsor owns the token's face, not its body. Everything that could hurt a holder — supply, fees, liquidity, balances — is out of the sponsor's reach by design.</p>
         <div class="map">
           <div class="map-row map-head"><div>A SPONSOR CAN</div><div>A SPONSOR CANNOT</div></div>
@@ -146,13 +148,13 @@
           <div class="map-row"><div>Be outbid by the next sale</div><div>Move anyone's balance, or refund a bid</div></div>
         </div>
 
-        <h3 class="serif">On names</h3>
+        <h3>On names</h3>
         <p>Names and tickers are capped in length by the contract. This site renders them as plain text, exactly as written — no markup, no tricks. The chain does not censor. Choose a name you would be happy to have burned a great deal of money for.</p>
       </section>
 
       <section class="chapter" id="questions">
         <div class="chapter-no mono">CHAPTER VI</div>
-        <h2 class="serif">Questions.</h2>
+        <h2>Questions.</h2>
         <div class="faq">
           <details>
             <summary>The name changed. Did my tokens change?</summary>
@@ -187,7 +189,7 @@
 
       <section class="chapter" id="glossary">
         <div class="chapter-no mono">CHAPTER VII</div>
-        <h2 class="serif">Glossary.</h2>
+        <h2>Glossary.</h2>
         <dl class="gloss">
           <div><dt>NAME</dt><dd>One incarnation of the token: a name, a ticker and a logo, numbered in the order they were bought.</dd></div>
           <div><dt>ATTENTION PRICE</dt><dd>What it costs to buy the name right now. Rises 1.4× with every sale.</dd></div>
@@ -205,16 +207,18 @@
     </article>
   </div>
 
-  <footer class="footer">
-    <div class="mono">ATTENTION MARKETS — NAMING RIGHTS, PRICED BY FIRE · ROBINHOOD CHAIN</div>
-    <div class="mono footer-links">
-      <a href="https://x.com" target="_blank" rel="noopener">X</a>
-      <a href="#">EXPLORER</a>
-      <a href="#">TRADE</a>
+  <footer class="footer container">
+    <div class="footer-row">
+      <a class="logo" href="index.html"><span class="logo-mark" aria-hidden="true"></span>Attention Markets</a>
+      <div class="footer-links">
+        <a href="https://x.com" target="_blank" rel="noopener">X</a>
+        <a href="#">Explorer</a>
+        <a href="#">Trade</a>
+        <a href="index.html#gallery">Gallery</a>
+      </div>
     </div>
-    <div class="mono">MMXXVI</div>
+    <p class="legal">Not financial advice. The market is not responsible for what you name it. © 2026 Attention Markets · Robinhood Chain</p>
   </footer>
-  <p class="legal serif-italic">Not financial advice. The market is not responsible for what you name it.</p>
 
 </body>
 </html>

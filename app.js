@@ -10,8 +10,6 @@ const DELAY_BLOCKS = 480;      // settlement: ~250 ms blocks on Robinhood Chain 
 const BLOCK_SECONDS = 0.25;
 const SEGMENTS = 8;
 const PACE_MS = 1000;          // demo pace per segment (60 blocks)
-const BOARD_TILES = 16;
-const BOARD_CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 ';
 
 const NEXT_FORMS = [
   { name: 'Chrome Leviathan', ticker: '$LEVI' },
@@ -73,101 +71,66 @@ const GLYPHS = {
     + '<circle cx="12" cy="12" r="3"></circle>',
 };
 
-function medalHTML(form, size, gold) {
-  const cls = 'medal' + (gold ? ' medal-gold' : '');
-  let inner;
+function hueOf(str) {
+  let h = 7;
+  for (const c of str) h = (h * 31 + c.charCodeAt(0)) % 360;
+  return h;
+}
+
+function tileStyle(seed) {
+  const h = hueOf(seed);
+  return 'background: linear-gradient(135deg, hsl(' + h + ' 82% 60%) 0%, hsl(' + ((h + 55) % 360) + ' 70% 30%) 100%);';
+}
+
+function glyphHTML(form) {
   if (GLYPHS[form.emblem]) {
-    inner = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">' + GLYPHS[form.emblem] + '</svg>';
-  } else {
-    inner = '<span class="medal-sigil serif" style="font-size: ' + Math.round(size * 0.36) + 'px;">' + form.ticker.replace('$', '').slice(0, 2) + '</span>';
+    return '<svg class="tile-glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">' + GLYPHS[form.emblem] + '</svg>';
   }
-  return '<div class="' + cls + '" style="width: ' + size + 'px; height: ' + size + 'px;">' + inner + '</div>';
+  return '<span class="sigil">' + form.ticker.replace('$', '').slice(0, 2) + '</span>';
 }
 
-/* ---------- the board ---------- */
+/* ---------- hero ---------- */
 
-function boardText(name) {
-  const t = name.toUpperCase().slice(0, BOARD_TILES);
-  const pad = BOARD_TILES - t.length;
-  const left = Math.floor(pad / 2);
-  return ' '.repeat(left) + t + ' '.repeat(pad - left);
-}
-
-function tileChar(c) { return c === ' ' ? ' ' : c; }
-
-function renderBoard(name, animate) {
-  const row = $('#board-tiles');
-  const text = boardText(name);
-  if (!row.children.length) {
-    row.innerHTML = text.split('').map((c) => '<span class="tile">' + tileChar(c) + '</span>').join('');
-    return;
-  }
-  const tiles = [...row.children];
-  if (!animate) {
-    tiles.forEach((tile, i) => { tile.textContent = tileChar(text[i]); });
-    return;
-  }
-  tiles.forEach((tile, i) => {
-    let steps = 6 + Math.floor(i / 2);
-    const iv = setInterval(() => {
-      tile.classList.remove('flip');
-      void tile.offsetWidth;
-      tile.classList.add('flip');
-      steps -= 1;
-      tile.textContent = steps > 0
-        ? BOARD_CHARS[Math.floor(Math.random() * BOARD_CHARS.length)]
-        : tileChar(text[i]);
-      if (steps <= 0) clearInterval(iv);
-    }, 75);
-  });
-}
-
-/* ---------- the ledger ---------- */
-
-function fstat(label, value, gold) {
-  return '<div class="fstat"><div class="fstat-l">' + label + '</div><div class="fstat-v' + (gold ? ' gold-ink' : '') + '">' + value + '</div></div>';
-}
-
-function renderCurrent() {
+function renderHero(animate) {
   const f = state.ledger[0];
-  $('#current-form').innerHTML = medalHTML(f, 220, true)
-    + '<div class="feature-body">'
-    + '<div class="feature-label mono">NOW TRADING · NAME ' + ROMAN[f.no] + ' · ' + state.capturedAgo.toUpperCase() + '</div>'
-    + '<div class="feature-name"><span class="serif">' + f.name + '</span><span class="mono feature-ticker">' + f.ticker + '</span></div>'
-    + '<div class="feature-stats mono">'
-    + fstat('SPONSOR', f.captor)
-    + fstat('BID BURNED', fmt(f.tribute) + ' $ATTN')
-    + fstat('HOLDING FOR', f.reign + ' · counting')
-    + fstat('EARNED SO FAR', eth(f.earned), true)
-    + fstat('NEXT BID', fmt(state.nextTribute) + ' $ATTN')
-    + fstat('LOGO', 'set by the sponsor')
-    + '</div>'
-    + '<a class="mono link-u feature-link" href="#how">HOW TO BUY THE NAME</a>'
-    + '</div>';
+  const tile = $('#hero-tile');
+  tile.setAttribute('style', tileStyle(f.ticker + f.name));
+  $('#hero-glyph').innerHTML = glyphHTML(f);
+  const nameEl = $('#hero-name');
+  nameEl.textContent = f.name;
+  if (animate) {
+    nameEl.classList.remove('swap');
+    void nameEl.offsetWidth;
+    nameEl.classList.add('swap');
+  }
+  $('#hero-avatar').setAttribute('style', tileStyle(f.captor || 'house'));
 }
 
-function cardRow(label, value) {
-  return '<div class="card-row"><span>' + label + '</span><span>' + value + '</span></div>';
-}
+/* ---------- gallery ---------- */
 
-function cardHTML(f) {
+function gcardHTML(f, isNow) {
   const genesis = f.captor === null;
-  return '<article class="form-card">' + medalHTML(f, 96, false)
-    + '<div class="card-no mono">NAME ' + ROMAN[f.no] + (genesis ? ' · GENESIS' : '') + '</div>'
-    + '<div class="card-name serif">' + f.name + '</div>'
-    + '<div class="card-ticker mono">' + f.ticker + '</div>'
-    + '<div class="card-stats mono">'
-    + cardRow('SPONSOR', genesis ? 'the house, unsponsored' : f.captor)
-    + cardRow('BID', genesis ? '—' : fmt(f.tribute) + ' $ATTN')
-    + cardRow('HELD', f.reign)
+  return '<article class="gcard' + (isNow ? ' now' : '') + '">'
+    + '<div class="gtile" style="' + tileStyle(f.ticker + f.name) + '">' + glyphHTML(f)
+    + '<span class="gbadge mono">' + (isNow ? 'NOW TRADING' : 'NAME ' + ROMAN[f.no] + (genesis ? ' · GENESIS' : '')) + '</span></div>'
+    + '<div class="gname">' + f.name + '</div>'
+    + '<div class="gticker mono">' + f.ticker + '</div>'
+    + '<div class="grows mono">'
+    + '<div class="grow"><span>SPONSOR</span><span>' + (genesis ? 'the house' : f.captor) + '</span></div>'
+    + '<div class="grow"><span>BID</span><span>' + (genesis ? '—' : fmt(f.tribute) + ' $ATTN') + '</span></div>'
+    + '<div class="grow"><span>HELD</span><span>' + f.reign + (f.counting ? ' · live' : '') + '</span></div>'
     + '</div>'
-    + '<div class="card-earned">' + (genesis ? '<span class="none mono">no sponsor, no fee</span>' : '<span class="echip">' + eth(f.earned) + ' EARNED</span>') + '</div>'
+    + (genesis
+      ? '<span class="gearn none mono">NO SPONSOR, NO FEE</span>'
+      : '<span class="gearn mono">' + eth(f.earned) + ' EARNED</span>')
     + '</article>';
 }
 
-function renderHistory() {
-  $('#history-grid').innerHTML = state.ledger.slice(1).map(cardHTML).join('');
+function renderGallery() {
+  $('#gallery-grid').innerHTML = state.ledger.map((f, i) => gcardHTML(f, i === 0)).join('');
 }
+
+/* ---------- binds ---------- */
 
 function renderState() {
   const binds = {
@@ -179,8 +142,9 @@ function renderState() {
     'burned-pct': (state.burned / TOTAL_SUPPLY * 100).toFixed(1) + '%',
     'burned-total': fmt(state.burned),
     'paid-total': state.paidTotal.toFixed(1) + ' ETH',
-    'form-line': 'name No. ' + ROMAN[state.formNo] + ' — ' + state.capturedAgo,
+    'form-line': 'Name No. ' + ROMAN[state.formNo] + ' — ' + state.capturedAgo,
     'lives-line': (WORDS[state.formNo] || state.formNo) + ' names so far.',
+    'held': state.ledger[0].reign,
   };
   Object.keys(binds).forEach((key) => {
     $$('[data-bind="' + key + '"]').forEach((el) => { el.textContent = binds[key]; });
@@ -188,7 +152,7 @@ function renderState() {
   document.title = 'Attention Markets — now trading as ' + state.ticker;
 }
 
-/* ---------- toast ---------- */
+/* ---------- toast & copy ---------- */
 
 let toastTimer;
 function toast(msg) {
@@ -199,11 +163,16 @@ function toast(msg) {
   toastTimer = setTimeout(() => t.classList.remove('show'), 2600);
 }
 
-/* ---------- copy CA ---------- */
-
 $('#ca-btn').addEventListener('click', () => {
   navigator.clipboard.writeText(CA_FULL).then(
     () => toast('PLACEHOLDER CA COPIED — REAL ONE COMES WITH THE DEPLOY'),
+    () => toast('COULD NOT COPY')
+  );
+});
+
+$('#sponsor-copy').addEventListener('click', () => {
+  navigator.clipboard.writeText(state.captor).then(
+    () => toast('SPONSOR ADDRESS COPIED (SAMPLE)'),
     () => toast('COULD NOT COPY')
   );
 });
@@ -220,7 +189,7 @@ function pickNextForm() {
 
 function blockLabel(block) {
   const eta = Math.ceil((DELAY_BLOCKS - block) * BLOCK_SECONDS);
-  return 'BLOCK <b class="gold">' + block + '</b> OF <b class="gold">' + DELAY_BLOCKS + '</b> · SETTLES IN <b class="gold">≈ ' + eta + ' S</b>';
+  return 'BLOCK ' + block + ' OF ' + DELAY_BLOCKS + ' · SETTLES IN ≈ ' + eta + ' S';
 }
 
 function startCapture() {
@@ -232,10 +201,10 @@ function startCapture() {
   $('#meta-old-form').textContent = 'NAME ' + ROMAN[state.formNo] + ' — OUTBID';
   $('#meta-new-name').textContent = '? ? ? ?';
   $('#meta-new-form').textContent = 'NAME ' + ROMAN[state.formNo + 1] + ' — SEALED UNTIL BLOCK ' + DELAY_BLOCKS;
-  $('#meta-new-name').parentElement.classList.remove('revealed');
-  $('#meta-burn-line').innerHTML = '0xD3M0…CA97 BURNED <b class="gold">' + fmt(tribute) + ' $ATTN</b> — THE BID IS NON-REFUNDABLE';
-  $$('#meta-progress i').forEach((seg) => seg.classList.remove('on'));
-  $('#meta-block-label').innerHTML = blockLabel(0);
+  $('#meta-new-box').classList.remove('revealed');
+  $('#meta-burn-line').textContent = '0xD3M0…CA97 BURNED ' + fmt(tribute) + ' $ATTN — THE BID IS NON-REFUNDABLE';
+  $('#meta-fill').style.width = '0%';
+  $('#meta-block-label').textContent = blockLabel(0);
 
   overlay.classList.add('open');
   overlay.setAttribute('aria-hidden', 'false');
@@ -244,9 +213,8 @@ function startCapture() {
   let seg = 0;
   captureTimer = setInterval(() => {
     seg += 1;
-    const segs = $$('#meta-progress i');
-    if (segs[seg - 1]) segs[seg - 1].classList.add('on');
-    $('#meta-block-label').innerHTML = blockLabel(Math.round(seg * DELAY_BLOCKS / SEGMENTS));
+    $('#meta-fill').style.width = (seg / SEGMENTS * 100) + '%';
+    $('#meta-block-label').textContent = blockLabel(Math.round(seg * DELAY_BLOCKS / SEGMENTS));
     if (seg >= SEGMENTS) {
       clearInterval(captureTimer);
       captureTimer = null;
@@ -256,16 +224,15 @@ function startCapture() {
 }
 
 function revealForm(next, tribute) {
-  const box = $('#meta-new-name');
-  box.textContent = next.name.toUpperCase() + ' · ' + next.ticker;
-  box.parentElement.classList.add('revealed');
+  $('#meta-new-name').textContent = next.name.toUpperCase() + ' · ' + next.ticker;
+  $('#meta-new-box').classList.add('revealed');
   $('#meta-new-form').textContent = 'NAME ' + ROMAN[state.formNo + 1] + ' — SETTLED';
   setTimeout(() => {
     closeOverlay();
     applyCapture(next, tribute);
     toast('THE MARKET HAS A NEW NAME');
-    $('#skin').scrollIntoView({ behavior: 'smooth', block: 'center' });
-  }, 2000);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, 1800);
 }
 
 function closeOverlay() {
@@ -296,9 +263,8 @@ function applyCapture(next, tribute) {
   state.burned += tribute;
   state.nextTribute = Math.round(state.nextTribute * 1.4 / 1000) * 1000;
   renderState();
-  renderBoard(state.name, true);
-  renderCurrent();
-  renderHistory();
+  renderHero(true);
+  renderGallery();
 }
 
 $('#capture-btn').addEventListener('click', startCapture);
@@ -311,22 +277,8 @@ document.addEventListener('keydown', (e) => {
   }
 });
 
-/* ---------- reveal on scroll ---------- */
-
-const io = new IntersectionObserver((entries) => {
-  entries.forEach((entry) => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('in');
-      io.unobserve(entry.target);
-    }
-  });
-}, { threshold: 0.15 });
-
-$$('.reveal').forEach((el) => io.observe(el));
-
 /* ---------- init ---------- */
 
 renderState();
-renderBoard(state.name, false);
-renderCurrent();
-renderHistory();
+renderHero(false);
+renderGallery();

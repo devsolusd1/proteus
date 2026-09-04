@@ -8,177 +8,187 @@
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Manrope:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700;12..96,800&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
   <nav class="nav">
-    <a class="wordmark" href="#top">ATTENTION MARKETS</a>
-    <div class="nav-links mono">
-      <a href="#how">HOW IT WORKS</a>
-      <a href="#ledger">THE LEDGER</a>
-      <a href="docs.html">DOCS</a>
-      <a href="https://x.com" target="_blank" rel="noopener">X</a>
-    </div>
-    <div class="nav-right">
-      <span class="net mono"><i class="live-dot" aria-hidden="true"></i>ROBINHOOD CHAIN</span>
-      <a class="btn btn-ink mono" href="#">TRADE <span data-bind="ticker">$SQUID</span></a>
+    <div class="container nav-inner">
+      <a class="logo" href="#top"><span class="logo-mark" aria-hidden="true"></span>Attention Markets</a>
+      <div class="nav-links">
+        <a href="#how">How it works</a>
+        <a href="#gallery">Gallery</a>
+        <a href="docs.html">Docs</a>
+        <a href="https://x.com" target="_blank" rel="noopener">X</a>
+      </div>
+      <div class="nav-right">
+        <span class="net mono"><i class="dot" aria-hidden="true"></i>Robinhood Chain</span>
+        <a class="btn btn-secondary" href="#">Trade <span data-bind="ticker">$SQUID</span></a>
+      </div>
     </div>
   </nav>
 
-  <div class="utility mono">
-    <span class="live-dot" aria-hidden="true"></span>
-    <span>NOW TRADING AS <b class="gold" data-bind="ticker">$SQUID</b> · NO. <b class="gold" data-bind="form-roman">VII</b></span>
-    <span class="sep">│</span>
-    <span>ATTENTION PRICE <b class="gold" data-bind="next-tribute">1,680,000</b> $ATTN</span>
-    <span class="sep">│</span>
-    <span>SPONSOR EARNED <b class="gold" data-bind="earned">4.31 ETH</b></span>
-    <span class="sep">│</span>
-    <span>FEE <b class="gold">2%</b> ON EVERY TRADE</span>
-  </div>
-
-  <header class="hero" id="top">
-    <h1 class="hero-title serif">ATTENTION<br>IS FOR SALE.</h1>
-    <div class="skin" id="skin">
-      <div class="label mono gold-ink">NOW TRADING AS</div>
-      <div class="board" id="board" role="img" aria-label="The board showing the current name">
-        <div class="board-row" id="board-tiles"></div>
+  <header class="hero container" id="top">
+    <div class="hero-media rise">
+      <div class="tile-xl" id="hero-tile">
+        <div class="tile-glyph-wrap" id="hero-glyph"></div>
+        <span class="tile-badge mono tl">NAME <span data-bind="form-roman">VII</span></span>
+        <span class="tile-badge mono tr"><i class="dot"></i>LIVE</span>
       </div>
-      <p class="skin-sub serif-italic"><span data-bind="form-line">name No. VII — bought two days ago</span> · <span class="mono skin-ticker" data-bind="ticker">$SQUID</span></p>
-      <div class="skin-cta">
-        <button class="capture" id="capture-btn" type="button">
-          <span class="capture-main mono">BUY THE NAME</span>
-          <span class="capture-sub mono">BURN <b data-bind="next-tribute">1,680,000</b> $ATTN · BECOME THE SPONSOR</span>
-        </button>
-        <a class="btn btn-ghost-ink mono" href="#how">HOW IT WORKS</a>
-      </div>
-      <div class="demo-note-ink mono">buying runs a local simulation until the contract ships</div>
+      <p class="tile-caption mono">LOGO · SET BY THE SPONSOR</p>
     </div>
-    <p class="board-caption mono">THE BOARD — WHOEVER PAYS, NAMES IT</p>
+
+    <div class="hero-copy">
+      <div class="eyebrow mono rise">NOW TRADING AS</div>
+      <h1 class="name" id="hero-name">Gigasquid</h1>
+      <div class="name-meta rise">
+        <span class="pill mono" data-bind="ticker">$SQUID</span>
+        <span class="muted" data-bind="form-line">Name No. VII — bought two days ago</span>
+      </div>
+
+      <div class="sponsor-card rise">
+        <span class="avatar" id="hero-avatar" aria-hidden="true"></span>
+        <div class="sponsor-body">
+          <div class="sponsor-l mono">SPONSOR · WHO SET THIS NAME</div>
+          <div class="sponsor-addr mono"><span data-bind="captor">0x3aF9…c2E1</span>
+            <button class="icon-btn" id="sponsor-copy" type="button" title="Copy sponsor address">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="2.5"></rect><path d="M5 15V5a2 2 0 0 1 2-2h10"></path></svg>
+            </button>
+          </div>
+        </div>
+        <span class="earn-chip mono">EARNED <b data-bind="earned">4.31 ETH</b></span>
+      </div>
+
+      <div class="stats rise">
+        <div class="stat">
+          <div class="stat-l mono">ATTENTION PRICE</div>
+          <div class="stat-v"><span data-bind="next-tribute">1,680,000</span> <small>$ATTN</small></div>
+        </div>
+        <div class="stat">
+          <div class="stat-l mono">HOLDING FOR</div>
+          <div class="stat-v" data-bind="held">2d 06h</div>
+        </div>
+        <div class="stat">
+          <div class="stat-l mono">SUPPLY BURNED</div>
+          <div class="stat-v" data-bind="burned-pct">3.6%</div>
+        </div>
+      </div>
+
+      <div class="cta rise">
+        <button class="btn btn-primary" id="capture-btn" type="button">
+          <span>Buy the name</span>
+          <small class="mono">BURN <b data-bind="next-tribute">1,680,000</b> $ATTN · BECOME THE SPONSOR</small>
+        </button>
+        <a class="btn btn-secondary btn-tall" href="#how">How it works</a>
+      </div>
+      <p class="note mono rise">buying runs a local simulation until the contract ships</p>
+    </div>
   </header>
 
-  <section class="panel" id="current">
-    <div class="panel-left">
-      <div class="label mono gold">THE MARKET, IN BRIEF</div>
-      <p class="body panel-lead">One contract on Robinhood Chain. Its name, ticker and logo belong to whoever burned the most $ATTN for them — and that sponsor collects 1% of every trade for as long as the name stands. Every bid is burned, so the supply only shrinks. The price of attention only goes up.</p>
-      <p class="fine serif-italic">Whatever it is called today, the contract never changes.</p>
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee-track mono">
+      <span>ATTENTION PRICE <b data-bind="next-tribute">1,680,000</b> $ATTN</span>
+      <span>SPONSOR <b data-bind="captor">0x3aF9…c2E1</b></span>
+      <span>FEE <b>2%</b> ON EVERY TRADE</span>
+      <span>SETTLEMENT <b>480</b> BLOCKS</span>
+      <span>SUPPLY BURNED <b data-bind="burned-pct">3.6%</b></span>
+      <span>ROBINHOOD CHAIN</span>
+      <span>ATTENTION PRICE <b data-bind="next-tribute">1,680,000</b> $ATTN</span>
+      <span>SPONSOR <b data-bind="captor">0x3aF9…c2E1</b></span>
+      <span>FEE <b>2%</b> ON EVERY TRADE</span>
+      <span>SETTLEMENT <b>480</b> BLOCKS</span>
+      <span>SUPPLY BURNED <b data-bind="burned-pct">3.6%</b></span>
+      <span>ROBINHOOD CHAIN</span>
     </div>
-    <div class="panel-right">
-      <div class="panel-stats mono">
-        <span>SPONSOR <span data-bind="captor">0x3aF9…c2E1</span></span>
-        <span>EARNED <b class="gold" data-bind="earned">4.31 ETH</b></span>
-        <span>NEXT BID <b class="gold" data-bind="next-tribute">1,680,000</b> $ATTN</span>
-        <span>BURNED <b class="gold" data-bind="burned-pct">3.6%</b> OF SUPPLY</span>
-      </div>
-      <button class="ca mono" id="ca-btn" type="button" title="Copy contract address">
-        <span>CA 0x0000…0000</span>
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="1"></rect><path d="M5 15V5a2 2 0 0 1 2-2h10"></path></svg>
-      </button>
-      <a class="mono link-u link-paper" href="docs.html">READ THE DOCS</a>
-    </div>
-  </section>
+  </div>
 
-  <section class="section" id="how">
-    <div class="section-head reveal">
-      <h2 class="serif">Attention pays rent.</h2>
-      <div class="section-side">
-        <p class="body">Whoever buys the name becomes the Sponsor: half of the 2% attention fee streams to them for as long as the name stands. Buying the name is not vanity — it is buying the cashflow of being seen.</p>
-        <a class="mono link-u" href="#ledger">SEE EVERY NAME SO FAR</a>
-      </div>
+  <section class="section container" id="how">
+    <div class="section-head">
+      <h2>Attention is for sale.</h2>
+      <p class="lead">One contract on Robinhood Chain. Its name, ticker and logo belong to whoever burned the most $ATTN for them — and that sponsor collects 1% of every trade for as long as the name stands. Every bid is burned, so the supply only shrinks. The price of attention only goes up.</p>
     </div>
 
-    <div class="rite-band">
-      <div class="rite-col">
-        <svg width="56" height="56" viewBox="0 0 56 56" fill="none"><circle cx="28" cy="28" r="26" stroke="rgba(234,226,204,0.45)" stroke-width="1"></circle><circle cx="28" cy="28" r="20" stroke="rgba(234,226,204,0.22)" stroke-width="1"></circle><g transform="translate(16,16)" stroke="#D9A845" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c1.5 3 5 5.2 5 9a5 5 0 0 1-10 0c0-1.8.8-3.3 1.8-4.8.6 1.2 1.4 2 2.7 2.3C11 7.5 11.2 5 12 3z"></path></g></svg>
+    <div class="steps">
+      <div class="step">
+        <div class="step-n mono">01</div>
         <h3>Burn the bid</h3>
         <p>To buy the name you burn $ATTN. The bid is destroyed forever, and every purchase raises the price of the next: attention only gets more expensive.</p>
         <span class="chip mono">NOW <span data-bind="next-tribute">1,680,000</span> $ATTN</span>
       </div>
-      <div class="rite-col">
-        <svg width="56" height="56" viewBox="0 0 56 56" fill="none"><circle cx="28" cy="28" r="26" stroke="rgba(234,226,204,0.45)" stroke-width="1"></circle><circle cx="28" cy="28" r="20" stroke="rgba(234,226,204,0.22)" stroke-width="1"></circle><g transform="translate(16,16)" stroke="#D9A845" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l9 5v10l-9 5-9-5V7z"></path><path d="M3 7l9 5 9-5"></path><path d="M12 22V12"></path></g></svg>
+      <div class="step">
+        <div class="step-n mono">02</div>
         <h3>Let it settle</h3>
-        <p>For 480 blocks — about two minutes on Robinhood Chain — the new name is sealed but not yet shown. No last-second renames, no snipes: the market watches the bid settle.</p>
-        <span class="chip mono">480 BLOCKS ≈ 2 MINUTES</span>
+        <p>For 480 blocks — about two minutes on Robinhood Chain — the new name is sealed but not yet shown. No last-second renames, no snipes.</p>
+        <span class="chip mono">480 BLOCKS ≈ 2 MIN</span>
       </div>
-      <div class="rite-col">
-        <svg width="56" height="56" viewBox="0 0 56 56" fill="none"><circle cx="28" cy="28" r="26" stroke="rgba(234,226,204,0.45)" stroke-width="1"></circle><circle cx="28" cy="28" r="20" stroke="rgba(234,226,204,0.22)" stroke-width="1"></circle><g transform="translate(16,16)" stroke="#D9A845" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6S2 12 2 12z"></path><circle cx="12" cy="12" r="3"></circle></g></svg>
+      <div class="step">
+        <div class="step-n mono">03</div>
         <h3>Collect the fee</h3>
-        <p>From the moment the name settles, 1% of every trade streams to you in ETH — until someone burns more and takes the name for themselves.</p>
+        <p>From the moment the name settles, 1% of every trade streams to you in ETH — until someone burns more and takes the name.</p>
         <span class="chip mono">1% OF EVERY TRADE</span>
       </div>
     </div>
 
-    <div class="fee-strip mono">EVERY TRADE PAYS A 2% ATTENTION FEE — <b>1%</b> THE HOUSE · <b>1%</b> THE SPONSOR</div>
-    <p class="footnote serif-italic">Until the first name is bought, the full fee rests with the house.</p>
-  </section>
-
-  <section class="section" id="ledger">
-    <div class="section-head reveal">
-      <h2 class="serif">Every name the market has bought.</h2>
-      <div class="section-side">
-        <p class="body">Each entry is a name someone paid for — with the logo they gave it, and what being seen returned while it lasted. The current name holds until the next bid burns.</p>
-        <a class="mono link-u" href="#">VIEW THE CONTRACT ON THE EXPLORER</a>
+    <div class="fee">
+      <div>
+        <div class="fee-l mono">THE ATTENTION FEE</div>
+        <h3>Every trade pays 2%. It splits down the middle.</h3>
+        <p class="muted">Half to the house, half to whoever holds the name — streamed trade by trade, in ETH, nothing to claim. Until the first name is bought, the full fee rests with the house.</p>
       </div>
-    </div>
-
-    <div class="feature" id="current-form"></div>
-
-    <div class="history-head">
-      <h3 class="serif">Past names</h3>
-      <span class="mono history-count" data-bind="lives-line">Seven names so far.</span>
-    </div>
-    <div class="history-grid" id="history-grid"></div>
-
-    <div class="stats-band">
-      <div class="stat">
-        <div class="stat-v serif" data-bind="form-roman">VII</div>
-        <div class="stat-l mono">NAMES SO FAR</div>
-      </div>
-      <div class="stat">
-        <div class="stat-v serif" data-bind="burned-total">3,605,000</div>
-        <div class="stat-l mono">$ATTN BURNED — <span data-bind="burned-pct">3.6%</span> OF SUPPLY</div>
-      </div>
-      <div class="stat">
-        <div class="stat-v serif gold" data-bind="paid-total">23.9 ETH</div>
-        <div class="stat-l mono">PAID TO SPONSORS</div>
+      <div class="fee-viz">
+        <div class="fee-bar"><span class="fee-house"></span><span class="fee-sponsor"></span></div>
+        <div class="fee-legend mono"><span><i class="sw sw-house"></i>1% THE HOUSE</span><span><i class="sw sw-sponsor"></i>1% THE SPONSOR</span></div>
       </div>
     </div>
   </section>
 
-  <footer class="footer">
-    <div class="mono">ATTENTION MARKETS — NAMING RIGHTS, PRICED BY FIRE · ROBINHOOD CHAIN</div>
-    <div class="mono footer-links">
-      <a href="https://x.com" target="_blank" rel="noopener">X</a>
-      <a href="#">EXPLORER</a>
-      <a href="#">TRADE</a>
+  <section class="section container" id="gallery">
+    <div class="section-head">
+      <h2>Every name the market has bought.</h2>
+      <p class="lead"><span data-bind="lives-line">Seven names so far.</span> Each one paid for by a sponsor — with the logo they gave it, and what being seen returned while it lasted.</p>
     </div>
-    <div class="mono">MMXXVI</div>
+    <div class="gallery-grid" id="gallery-grid"></div>
+    <div class="stats-row">
+      <div class="big-stat"><div class="big-v" data-bind="form-roman">VII</div><div class="stat-l mono">NAMES SO FAR</div></div>
+      <div class="big-stat"><div class="big-v"><span data-bind="burned-total">3,605,000</span></div><div class="stat-l mono">$ATTN BURNED · <span data-bind="burned-pct">3.6%</span> OF SUPPLY</div></div>
+      <div class="big-stat"><div class="big-v accent" data-bind="paid-total">23.9 ETH</div><div class="stat-l mono">PAID TO SPONSORS</div></div>
+    </div>
+  </section>
+
+  <footer class="footer container">
+    <div class="footer-row">
+      <a class="logo" href="#top"><span class="logo-mark" aria-hidden="true"></span>Attention Markets</a>
+      <div class="footer-links">
+        <a href="https://x.com" target="_blank" rel="noopener">X</a>
+        <a href="#">Explorer</a>
+        <a href="#">Trade</a>
+        <a href="docs.html">Docs</a>
+        <button class="linklike" id="ca-btn" type="button">CA 0x0000…0000</button>
+      </div>
+    </div>
+    <p class="legal">Not financial advice. The market is not responsible for what you name it. © 2026 Attention Markets · Robinhood Chain</p>
   </footer>
-  <p class="legal serif-italic">Not financial advice. The market is not responsible for what you name it.</p>
 
-  <div class="meta-overlay" id="meta-overlay" aria-hidden="true">
-    <div class="meta-inner">
-      <div class="meta-label mono"><span class="live-dot gold-dot"></span> A NEW NAME IS SETTLING</div>
-      <div class="meta-title serif">Settling.</div>
-      <div class="meta-sub serif-italic">the market is changing its mind</div>
-      <div class="meta-swap">
-        <div class="meta-old">
+  <div class="overlay" id="meta-overlay" aria-hidden="true">
+    <div class="modal">
+      <div class="eyebrow mono"><i class="dot"></i>A NEW NAME IS SETTLING</div>
+      <div class="modal-title">Settling<span class="blink">…</span></div>
+      <div class="swap">
+        <div class="swap-old">
           <div class="mono strike" id="meta-old-name">GIGASQUID</div>
           <div class="mono tiny" id="meta-old-form">NAME VII — OUTBID</div>
         </div>
-        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="rgba(234,226,204,0.5)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="M13 6l6 6-6 6"></path></svg>
-        <div class="meta-new">
-          <div class="mono gold" id="meta-new-name">? ? ? ?</div>
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" class="muted"><path d="M5 12h14"></path><path d="M13 6l6 6-6 6"></path></svg>
+        <div class="swap-new" id="meta-new-box">
+          <div class="mono" id="meta-new-name">? ? ? ?</div>
           <div class="mono tiny" id="meta-new-form">NAME VIII — SEALED UNTIL BLOCK 480</div>
         </div>
       </div>
-      <div class="meta-progress" id="meta-progress">
-        <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
-      </div>
-      <div class="mono meta-block" id="meta-block-label">BLOCK <b class="gold">0</b> OF <b class="gold">480</b></div>
-      <div class="mono meta-burn" id="meta-burn-line">0xD3M0…CA97 BURNED <b class="gold">1,680,000 $ATTN</b> — THE BID IS NON-REFUNDABLE</div>
-      <div class="mono tiny meta-esc">ESC TO CANCEL THE DEMO</div>
+      <div class="progress"><span id="meta-fill"></span></div>
+      <div class="mono tiny" id="meta-block-label">BLOCK 0 OF 480</div>
+      <div class="mono tiny" id="meta-burn-line">0xD3M0…CA97 BURNED 1,680,000 $ATTN — THE BID IS NON-REFUNDABLE</div>
+      <div class="mono tiny dim">ESC TO CANCEL THE DEMO</div>
     </div>
   </div>
 
