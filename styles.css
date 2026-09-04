@@ -212,7 +212,66 @@ a { color: var(--ink); text-decoration: none; }
   margin-top: 18px;
 }
 
+/* ---------- skin change (hero) ---------- */
+
+.skin { display: flex; flex-direction: column; align-items: center; gap: 12px; margin-top: 34px; }
+
+.skin-name {
+  margin: 0;
+  font-size: clamp(44px, 5vw, 72px);
+  line-height: 1;
+  letter-spacing: -0.045em;
+  font-weight: 400;
+}
+
+.skin-sub { margin: 0; font-size: 20px; color: rgba(21, 65, 78, 0.6); }
+
+.skin-ticker { font-size: 13px; letter-spacing: 0.12em; color: var(--gold-ink); font-style: normal; }
+
+.skin-cta { display: flex; align-items: stretch; justify-content: center; flex-wrap: wrap; gap: 14px; margin-top: 12px; }
+
+.capture {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 7px;
+  background: var(--ink);
+  color: var(--paper);
+  border: 2px solid var(--gold-ink);
+  padding: 18px 44px;
+  cursor: pointer;
+  animation: beckon 2.8s ease-in-out infinite;
+}
+
+.capture:hover { background: var(--ink-deep); }
+
+.capture-main { font-size: 15px; letter-spacing: 0.24em; }
+
+.capture-sub { font-size: 10px; letter-spacing: 0.14em; color: rgba(234, 226, 204, 0.7); }
+
+.capture-sub b { font-weight: 400; color: var(--gold); }
+
+@keyframes beckon {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(143, 110, 20, 0.35); }
+  50% { box-shadow: 0 0 0 12px rgba(143, 110, 20, 0); }
+}
+
+.btn-ghost-ink { border-color: var(--hair-ink-strong); color: var(--ink); background: transparent; }
+
+.btn-ghost-ink:hover { border-color: var(--ink); }
+
+.demo-note-ink { font-size: 10px; letter-spacing: 0.1em; color: rgba(21, 65, 78, 0.4); }
+
 /* ---------- current-form panel ---------- */
+
+.panel-left { display: flex; flex-direction: column; gap: 16px; }
+
+.panel-lead { font-size: 17px; }
+
+.link-paper { color: var(--paper); }
+
+.link-paper:hover { color: var(--gold); }
+
 
 .panel {
   display: grid;
@@ -226,16 +285,7 @@ a { color: var(--ink); text-decoration: none; }
 
 .label { font-size: 11px; letter-spacing: 0.22em; }
 
-.panel-name {
-  margin: 16px 0 0 0;
-  font-size: clamp(52px, 6vw, 88px);
-  line-height: 1.02;
-  letter-spacing: -0.04em;
-  font-weight: 400;
-  overflow-wrap: anywhere;
-}
 
-.panel-sub { margin: 14px 0 0 0; font-size: 20px; color: rgba(234, 226, 204, 0.6); }
 
 .panel-right { display: flex; flex-direction: column; gap: 20px; }
 
@@ -252,9 +302,7 @@ a { color: var(--ink); text-decoration: none; }
   color: rgba(234, 226, 204, 0.6);
 }
 
-.cta-row { display: flex; flex-wrap: wrap; gap: 14px; }
 
-.demo-note { font-size: 10px; letter-spacing: 0.1em; color: rgba(234, 226, 204, 0.35); margin-top: -8px; }
 
 .ca {
   display: inline-flex;

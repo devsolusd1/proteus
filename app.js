@@ -226,7 +226,7 @@ function revealForm(next, tribute) {
     closeOverlay();
     applyCapture(next, tribute);
     toast('THE GOD WEARS A NEW NAME');
-    $('#current').scrollIntoView({ behavior: 'smooth' });
+    $('#skin').scrollIntoView({ behavior: 'smooth', block: 'center' });
   }, 2000);
 }
 

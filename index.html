@@ -40,6 +40,19 @@
 
   <header class="hero" id="top">
     <h1 class="hero-title serif">THE GOD OF<br>A THOUSAND FORMS</h1>
+    <div class="skin" id="skin">
+      <div class="label mono gold-ink">CURRENTLY MANIFESTING AS</div>
+      <h2 class="skin-name serif" data-bind="name-serif">Gigasquid.</h2>
+      <p class="skin-sub serif-italic"><span data-bind="form-line">form № VII — captured two days ago</span> · <span class="mono skin-ticker" data-bind="ticker">$SQUID</span></p>
+      <div class="skin-cta">
+        <button class="capture" id="capture-btn" type="button">
+          <span class="capture-main mono">CAPTURE HIM</span>
+          <span class="capture-sub mono">BURN <b data-bind="next-tribute">1,680,000</b> $PROTEUS · TAKE THE CROWN</span>
+        </button>
+        <a class="btn btn-ghost-ink mono" href="#rite">READ THE RITE</a>
+      </div>
+      <div class="demo-note-ink mono">capture runs a local simulation until the contract ships</div>
+    </div>
     <figure class="plate reveal">
       <div class="visions">
         <img class="vision vision-1" src="assets/proteu1.png" alt="Proteus as a lion" width="427" height="640">
@@ -57,27 +70,22 @@
 
   <section class="panel" id="current">
     <div class="panel-left">
-      <div class="label mono gold">CURRENTLY MANIFESTING AS</div>
-      <h2 class="panel-name serif" data-bind="name-serif">Gigasquid.</h2>
-      <p class="panel-sub serif-italic"><span data-bind="form-line">form № VII — captured two days ago</span></p>
+      <div class="label mono gold">THE GOD, IN BRIEF</div>
+      <p class="body panel-lead">One contract on Robinhood Chain, endless disguises. Burn a tribute of $PROTEUS to rename the god — name, ticker and face — and collect 1% of every trade until a rival captures him from you. He keeps the same address through every life.</p>
+      <p class="fine serif-italic">Whatever he calls himself, the contract never changes.</p>
     </div>
     <div class="panel-right">
-      <p class="body">One contract on Robinhood Chain, endless disguises. Burn a tribute of $PROTEUS to rename the god — name, ticker and face — and collect 1% of every trade until a rival captures him from you. He keeps the same address through every life.</p>
       <div class="panel-stats mono">
         <span>CAPTOR <span data-bind="captor">0x3aF9…c2E1</span></span>
         <span>EARNED <b class="gold" data-bind="earned">4.31 ETH</b></span>
+        <span>NEXT TRIBUTE <b class="gold" data-bind="next-tribute">1,680,000</b> $PROTEUS</span>
         <span>BURNED <b class="gold" data-bind="burned-pct">3.6%</b> OF SUPPLY</span>
       </div>
-      <div class="cta-row">
-        <button class="btn btn-paper mono" id="capture-btn" type="button">CAPTURE HIM</button>
-        <a class="btn btn-ghost mono" href="#rite">READ THE RITE</a>
-      </div>
-      <div class="demo-note mono">capture runs a local simulation until the contract ships</div>
       <button class="ca mono" id="ca-btn" type="button" title="Copy contract address">
         <span>CA 0x0000…0000</span>
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="1"></rect><path d="M5 15V5a2 2 0 0 1 2-2h10"></path></svg>
       </button>
-      <p class="fine serif-italic">Whatever he calls himself, the contract never changes.</p>
+      <a class="mono link-u link-paper" href="docs.html">READ THE DOCS</a>
     </div>
   </section>
 
