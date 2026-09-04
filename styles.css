@@ -10,8 +10,7 @@
   --dim: #66666F;
   --accent: #D9FF3A;
   --accent-ink: #0B0B0C;
-  --display: 'Silkscreen', 'Courier New', monospace;
-  --glow: 0 0 18px rgba(217, 255, 58, 0.28);
+  --display: 'Bricolage Grotesque', 'Instrument Sans', system-ui, sans-serif;
   --sans: 'Instrument Sans', 'Segoe UI', system-ui, sans-serif;
   --mono: 'JetBrains Mono', Consolas, monospace;
 }
@@ -82,9 +81,8 @@ button { font: inherit; color: inherit; }
   justify-self: start;
   font-family: var(--display);
   font-weight: 700;
-  font-size: 13px;
-  letter-spacing: 0.02em;
-  text-transform: uppercase;
+  font-size: 17px;
+  letter-spacing: -0.01em;
   white-space: nowrap;
 }
 
@@ -215,7 +213,7 @@ button { font: inherit; color: inherit; }
 
 .tile-glyph { width: 46%; height: 46%; filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.35)); }
 
-.sigil { font-family: var(--display); font-weight: 700; font-size: 96px; letter-spacing: 0.02em; filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.35)); }
+.sigil { font-family: var(--display); font-weight: 800; letter-spacing: -0.04em; filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.35)); }
 
 .tile-badge {
   position: absolute;
@@ -240,14 +238,12 @@ button { font: inherit; color: inherit; }
 .eyebrow { display: inline-flex; align-items: center; gap: 10px; font-size: 11px; letter-spacing: 0.2em; color: var(--accent); }
 
 .name {
-  margin: 14px 0 0 0;
+  margin: 12px 0 0 0;
   font-family: var(--display);
-  font-weight: 700;
-  font-size: clamp(36px, 5.4vw, 80px);
-  line-height: 1;
-  letter-spacing: 0.01em;
-  text-transform: uppercase;
-  text-shadow: var(--glow);
+  font-weight: 800;
+  font-size: clamp(56px, 7.4vw, 112px);
+  line-height: 0.92;
+  letter-spacing: -0.04em;
   overflow-wrap: anywhere;
 }
 
@@ -308,7 +304,7 @@ button { font: inherit; color: inherit; }
 
 .stat-l { font-size: 10px; letter-spacing: 0.16em; color: var(--muted); }
 
-.stat-v { margin-top: 8px; font-family: var(--display); font-weight: 700; font-size: 17px; letter-spacing: 0; }
+.stat-v { margin-top: 8px; font-family: var(--display); font-weight: 600; font-size: 22px; letter-spacing: -0.02em; }
 
 .stat-v small { font-size: 12px; color: var(--muted); font-family: var(--mono); font-weight: 400; }
 
@@ -352,11 +348,9 @@ button { font: inherit; color: inherit; }
   margin: 0;
   font-family: var(--display);
   font-weight: 700;
-  font-size: clamp(24px, 3.2vw, 44px);
-  line-height: 1.1;
-  letter-spacing: 0.01em;
-  text-transform: uppercase;
-  text-shadow: var(--glow);
+  font-size: clamp(36px, 4.6vw, 64px);
+  line-height: 0.98;
+  letter-spacing: -0.035em;
 }
 
 .lead { margin: 0; font-size: 17px; line-height: 1.65; color: var(--text-2); }
@@ -375,7 +369,7 @@ button { font: inherit; color: inherit; }
 
 .step-n { font-size: 12px; letter-spacing: 0.12em; color: var(--accent); }
 
-.step h3, .fee h3 { margin: 44px 0 0 0; font-family: var(--display); font-weight: 700; font-size: 17px; letter-spacing: 0.02em; line-height: 1.3; text-transform: uppercase; }
+.step h3, .fee h3 { margin: 44px 0 0 0; font-family: var(--display); font-weight: 600; font-size: 24px; letter-spacing: -0.02em; }
 
 .step p { margin: 10px 0 0 0; font-size: 15px; line-height: 1.65; color: var(--muted); }
 
@@ -404,7 +398,7 @@ button { font: inherit; color: inherit; }
 
 .fee-l { font-size: 11px; letter-spacing: 0.16em; color: var(--accent); }
 
-.fee h3 { margin-top: 14px; font-size: 19px; }
+.fee h3 { margin-top: 14px; font-size: 28px; }
 
 .fee p { margin: 12px 0 0 0; font-size: 15px; line-height: 1.65; }
 
@@ -469,7 +463,7 @@ button { font: inherit; color: inherit; }
 
 .gcard.now .gbadge { background: var(--accent); color: var(--accent-ink); }
 
-.gname { margin-top: 14px; font-family: var(--display); font-weight: 700; font-size: 15px; letter-spacing: 0.01em; line-height: 1.3; text-transform: uppercase; }
+.gname { margin-top: 14px; font-family: var(--display); font-weight: 600; font-size: 22px; letter-spacing: -0.02em; line-height: 1.05; }
 
 .gticker { margin-top: 4px; font-size: 12px; color: var(--accent); }
 
@@ -487,7 +481,7 @@ button { font: inherit; color: inherit; }
 
 .big-stat { padding: 24px 28px; border-radius: 22px; background: var(--surface); border: 1px solid var(--line); }
 
-.big-v { font-family: var(--display); font-weight: 700; font-size: 26px; letter-spacing: 0; text-shadow: var(--glow); }
+.big-v { font-family: var(--display); font-weight: 700; font-size: 36px; letter-spacing: -0.03em; }
 
 .big-stat .stat-l { margin-top: 8px; }
 
@@ -534,7 +528,7 @@ button { font: inherit; color: inherit; }
   gap: 16px;
 }
 
-.modal-title { font-family: var(--display); font-weight: 700; font-size: clamp(32px, 5vw, 60px); letter-spacing: 0.01em; line-height: 1; text-transform: uppercase; text-shadow: var(--glow); }
+.modal-title { font-family: var(--display); font-weight: 800; font-size: clamp(48px, 7vw, 88px); letter-spacing: -0.04em; line-height: 1; }
 
 .blink { animation: pulse 1s ease-in-out infinite; }
 
@@ -580,12 +574,10 @@ button { font: inherit; color: inherit; }
 .docs-head h1 {
   margin: 14px 0 0 0;
   font-family: var(--display);
-  font-weight: 700;
-  font-size: clamp(26px, 3.6vw, 50px);
-  line-height: 1.12;
-  letter-spacing: 0.01em;
-  text-transform: uppercase;
-  text-shadow: var(--glow);
+  font-weight: 800;
+  font-size: clamp(40px, 5.4vw, 76px);
+  line-height: 0.96;
+  letter-spacing: -0.04em;
 }
 
 .docs-head .sub { margin: 18px 0 0 0; font-size: 19px; line-height: 1.5; color: var(--muted); }
@@ -606,15 +598,15 @@ button { font: inherit; color: inherit; }
 
 .chapter-no { font-size: 11px; letter-spacing: 0.2em; color: var(--accent); }
 
-.chapter h2 { margin: 10px 0 0 0; font-family: var(--display); font-weight: 700; font-size: clamp(20px, 2.2vw, 30px); line-height: 1.15; letter-spacing: 0.01em; text-transform: uppercase; }
+.chapter h2 { margin: 10px 0 0 0; font-family: var(--display); font-weight: 700; font-size: clamp(30px, 3.2vw, 44px); line-height: 1.02; letter-spacing: -0.03em; }
 
 .chapter p { margin: 18px 0 0 0; font-size: 16px; line-height: 1.75; color: var(--text-2); }
 
-.chapter h3 { margin: 32px 0 0 0; font-family: var(--display); font-weight: 700; font-size: 15px; letter-spacing: 0.02em; line-height: 1.4; text-transform: uppercase; color: var(--accent); }
+.chapter h3 { margin: 32px 0 0 0; font-family: var(--display); font-weight: 600; font-size: 22px; letter-spacing: -0.02em; }
 
 .chapter .mono { color: var(--accent); font-size: 0.92em; }
 
-.quote { margin: 26px 0 0 0; padding: 20px 24px; border-radius: 18px; background: var(--surface); border-left: 3px solid var(--accent); font-family: var(--sans); font-weight: 500; font-size: 19px; line-height: 1.45; color: var(--text); }
+.quote { margin: 26px 0 0 0; padding: 20px 24px; border-radius: 18px; background: var(--surface); border-left: 3px solid var(--accent); font-family: var(--display); font-weight: 500; font-size: 20px; line-height: 1.4; color: var(--text); }
 
 .quote cite { display: block; margin-top: 10px; font-family: var(--mono); font-style: normal; font-size: 10px; letter-spacing: 0.16em; color: var(--muted); }
 
@@ -644,7 +636,7 @@ button { font: inherit; color: inherit; }
 
 .faq details:last-child { border-bottom: 1px solid var(--line); }
 
-.faq summary { display: flex; justify-content: space-between; gap: 16px; cursor: pointer; list-style: none; font-family: var(--sans); font-weight: 600; font-size: 18px; letter-spacing: -0.01em; }
+.faq summary { display: flex; justify-content: space-between; gap: 16px; cursor: pointer; list-style: none; font-family: var(--display); font-weight: 600; font-size: 19px; letter-spacing: -0.01em; }
 
 .faq summary::-webkit-details-marker { display: none; }
 
