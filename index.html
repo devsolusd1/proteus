@@ -51,20 +51,20 @@
       <div class="sponsor-card rise">
         <span class="avatar" id="hero-avatar" aria-hidden="true"></span>
         <div class="sponsor-body">
-          <div class="sponsor-l mono">SPONSOR · WHO SET THIS NAME</div>
+          <div class="sponsor-l mono" id="sponsor-label">THE HOUSE · NO SPONSOR YET</div>
           <div class="sponsor-addr mono"><span data-bind="captor">0x3aF9…c2E1</span>
             <button class="icon-btn" id="sponsor-copy" type="button" title="Copy sponsor address">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="2.5"></rect><path d="M5 15V5a2 2 0 0 1 2-2h10"></path></svg>
             </button>
           </div>
         </div>
-        <span class="earn-chip mono">EARNED <b data-bind="earned">4.31 ETH</b></span>
+        <span class="earn-chip mono" id="earn-chip">EARNED <b data-bind="earned">—</b></span>
       </div>
 
       <div class="stats rise">
         <div class="stat">
           <div class="stat-l mono">ATTENTION PRICE</div>
-          <div class="stat-v"><span data-bind="next-tribute">1,680,000</span> <small>$ATTN</small></div>
+          <div class="stat-v"><span data-bind="next-tribute">1,680,000</span> <small>$ATTENTION</small></div>
         </div>
         <div class="stat">
           <div class="stat-l mono">HOLDING FOR</div>
@@ -79,7 +79,7 @@
       <div class="cta rise">
         <button class="btn btn-primary" id="capture-btn" type="button">
           <span>Buy the name</span>
-          <small class="mono">BURN <b data-bind="next-tribute">1,680,000</b> $ATTN · BECOME THE SPONSOR</small>
+          <small class="mono">BURN <b data-bind="next-tribute">1,680,000</b> $ATTENTION · BECOME THE SPONSOR</small>
         </button>
         <a class="btn btn-secondary btn-tall" href="#how">How it works</a>
       </div>
@@ -89,13 +89,13 @@
 
   <div class="marquee" aria-hidden="true">
     <div class="marquee-track mono">
-      <span>ATTENTION PRICE <b data-bind="next-tribute">1,680,000</b> $ATTN</span>
+      <span>ATTENTION PRICE <b data-bind="next-tribute">1,680,000</b> $ATTENTION</span>
       <span>SPONSOR <b data-bind="captor">0x3aF9…c2E1</b></span>
       <span>FEE <b>2%</b> ON EVERY TRADE</span>
       <span>SETTLEMENT <b>480</b> BLOCKS</span>
       <span>SUPPLY BURNED <b data-bind="burned-pct">3.6%</b></span>
       <span>ROBINHOOD CHAIN</span>
-      <span>ATTENTION PRICE <b data-bind="next-tribute">1,680,000</b> $ATTN</span>
+      <span>ATTENTION PRICE <b data-bind="next-tribute">1,680,000</b> $ATTENTION</span>
       <span>SPONSOR <b data-bind="captor">0x3aF9…c2E1</b></span>
       <span>FEE <b>2%</b> ON EVERY TRADE</span>
       <span>SETTLEMENT <b>480</b> BLOCKS</span>
@@ -107,15 +107,15 @@
   <section class="section container" id="how">
     <div class="section-head">
       <h2>Attention is for sale.</h2>
-      <p class="lead">One contract on Robinhood Chain. Its name, ticker and logo belong to whoever burned the most $ATTN for them — and that sponsor collects 1% of every trade for as long as the name stands. Every bid is burned, so the supply only shrinks. The price of attention only goes up.</p>
+      <p class="lead">One contract on Robinhood Chain. Its name, ticker and logo belong to whoever burned the most $ATTENTION for them — and that sponsor collects 1% of every trade for as long as the name stands. Every bid is burned, so the supply only shrinks. The price of attention only goes up.</p>
     </div>
 
     <div class="steps">
       <div class="step">
         <div class="step-n mono">01</div>
         <h3>Burn the bid</h3>
-        <p>To buy the name you burn $ATTN. The bid is destroyed forever, and every purchase raises the price of the next: attention only gets more expensive.</p>
-        <span class="chip mono">NOW <span data-bind="next-tribute">1,680,000</span> $ATTN</span>
+        <p>To buy the name you burn $ATTENTION. The bid is destroyed forever, and every purchase raises the price of the next: attention only gets more expensive.</p>
+        <span class="chip mono">NOW <span data-bind="next-tribute">1,680,000</span> $ATTENTION</span>
       </div>
       <div class="step">
         <div class="step-n mono">02</div>
@@ -150,9 +150,14 @@
       <p class="lead"><span data-bind="lives-line">Seven names so far.</span> Each one paid for by a sponsor — with the logo they gave it, and what being seen returned while it lasted.</p>
     </div>
     <div class="gallery-grid" id="gallery-grid"></div>
+    <div class="gallery-empty" id="gallery-empty">
+      <div class="eyebrow mono"><i class="dot"></i>THE LEDGER IS EMPTY</div>
+      <p>No one has bought the name yet. The first bid takes it from the house — and starts collecting 1% of every trade.</p>
+      <button class="btn btn-secondary" type="button" onclick="document.getElementById('capture-btn').click()">Be the first sponsor</button>
+    </div>
     <div class="stats-row">
       <div class="big-stat"><div class="big-v" data-bind="form-roman">VII</div><div class="stat-l mono">NAMES SO FAR</div></div>
-      <div class="big-stat"><div class="big-v"><span data-bind="burned-total">3,605,000</span></div><div class="stat-l mono">$ATTN BURNED · <span data-bind="burned-pct">3.6%</span> OF SUPPLY</div></div>
+      <div class="big-stat"><div class="big-v"><span data-bind="burned-total">3,605,000</span></div><div class="stat-l mono">$ATTENTION BURNED · <span data-bind="burned-pct">3.6%</span> OF SUPPLY</div></div>
       <div class="big-stat"><div class="big-v accent" data-bind="paid-total">23.9 ETH</div><div class="stat-l mono">PAID TO SPONSORS</div></div>
     </div>
   </section>
@@ -188,7 +193,7 @@
       </div>
       <div class="progress"><span id="meta-fill"></span></div>
       <div class="mono tiny" id="meta-block-label">BLOCK 0 OF 480</div>
-      <div class="mono tiny" id="meta-burn-line">0xD3M0…CA97 BURNED 1,680,000 $ATTN — THE BID IS NON-REFUNDABLE</div>
+      <div class="mono tiny" id="meta-burn-line">0xD3M0…CA97 BURNED 1,680,000 $ATTENTION — THE BID IS NON-REFUNDABLE</div>
       <div class="mono tiny dim">ESC TO CANCEL THE DEMO</div>
     </div>
   </div>
@@ -214,7 +219,7 @@
         <input id="buy-image" type="url" autocomplete="off" spellcheck="false" placeholder="https://… or ipfs://…">
       </label>
       <div class="buy-summary mono">
-        <div><span>YOU BURN</span><b id="buy-price">1,680,000 $ATTN</b></div>
+        <div><span>YOU BURN</span><b id="buy-price">1,680,000 $ATTENTION</b></div>
         <div><span>YOUR BALANCE</span><b id="buy-balance">—</b></div>
         <div><span>SETTLES IN</span><b>480 BLOCKS ≈ 2 MIN</b></div>
         <div><span>YOU EARN</span><b>1% OF EVERY TRADE</b></div>

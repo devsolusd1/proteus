@@ -17,7 +17,7 @@ window.AM_CONFIG = {
   },
 
   contract: {
-    address: '0x0000000000000000000000000000000000000000',   // TODO: $ATTN contract
+    address: '0x0000000000000000000000000000000000000000',   // TODO: $ATTENTION contract
     decimals: 18,
     // Human-readable ABI of what the site calls. See CONTRACT.md — adjust here if the contract differs.
     abi: [

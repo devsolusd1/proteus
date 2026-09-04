@@ -170,9 +170,9 @@
       formNo: n,
       name: cur.name,
       ticker: '$' + cur.symbol,
-      captor: W.short(cur.sponsor),
-      earned: Number(ethers.formatEther(cur.earned)),
-      capturedAgo: ago(Number(cur.since)),
+      captor: ZERO.test(cur.sponsor) ? null : W.short(cur.sponsor),
+      earned: ZERO.test(cur.sponsor) ? 0 : Number(ethers.formatEther(cur.earned)),
+      capturedAgo: ZERO.test(cur.sponsor) ? 'genesis — no sponsor yet' : ago(Number(cur.since)),
       nextTribute: toUnits(price),
       burned: burnedUnits,
       paidTotal: ledger.reduce((a, f) => a + (f.earned || 0), 0),
@@ -225,7 +225,7 @@
     if (!live || !readContract || !W.account) return;
     try {
       const b = await readContract.balanceOf(W.account);
-      $('#buy-balance').textContent = AM.fmt(Math.floor(toUnits(b))) + ' $ATTN';
+      $('#buy-balance').textContent = AM.fmt(Math.floor(toUnits(b))) + ' $ATTENTION';
     } catch (e) { /* ignore */ }
   }
 
@@ -238,7 +238,7 @@
     status('');
     submitBtn.disabled = false;
     $('#buy-name-count').textContent = '0';
-    $('#buy-price').textContent = AM.fmt(AM.state.nextTribute) + ' $ATTN';
+    $('#buy-price').textContent = AM.fmt(AM.state.nextTribute) + ' $ATTENTION';
     $('#buy-balance').textContent = live ? '—' : 'demo';
     $('#buy-mode-note').textContent = live
       ? 'this sends a real transaction on ' + cfg.chain.name + ' — the bid is burned and cannot be refunded'
@@ -247,7 +247,7 @@
     buyOverlay.classList.add('open');
     nameIn.focus();
     if (live) {
-      try { const p = await readContract.attentionPrice(); $('#buy-price').textContent = AM.fmt(toUnits(p)) + ' $ATTN'; } catch (e) { /* keep last known */ }
+      try { const p = await readContract.attentionPrice(); $('#buy-price').textContent = AM.fmt(toUnits(p)) + ' $ATTENTION'; } catch (e) { /* keep last known */ }
       refreshBalance();
     }
   }
@@ -311,7 +311,7 @@
       const { bp, contract } = await signerContract();
       const [price, balance, pend] = await Promise.all([contract.attentionPrice(), contract.balanceOf(W.account), contract.pendingName().catch(() => null)]);
       if (pend && pend.active) throw new Error('A NAME IS ALREADY SETTLING — TRY AGAIN AFTER BLOCK ' + pend.settleBlock);
-      if (balance < price) throw new Error('INSUFFICIENT $ATTN — YOU NEED ' + AM.fmt(toUnits(price)));
+      if (balance < price) throw new Error('INSUFFICIENT $ATTENTION — YOU NEED ' + AM.fmt(toUnits(price)));
 
       const tx = await contract.buyName(next.name, next.ticker.slice(1), next.image || '');
       status('PENDING · ' + txLink(tx.hash), 'pending');

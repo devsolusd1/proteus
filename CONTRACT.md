@@ -13,7 +13,7 @@ Token ERC-20 padrão (`name`, `symbol`, `decimals`, `totalSupply`, `balanceOf`, 
 | `pendingName() → (active, name, symbol, image, buyer, bid, settleBlock)` | a compra em settlement, se houver | overlay "Settling", bloqueio de nova compra |
 | `nameCount() → uint256` | quantos nomes já existiram (inclui o genesis = id 1) | galeria |
 | `nameAt(id) → (name, symbol, image, sponsor, bid, since, until, earned)` | histórico; `until = 0` no nome atual | galeria |
-| `totalBurned() → uint256` | total de $ATTN queimado em bids | stats |
+| `totalBurned() → uint256` | total de $ATTENTION queimado em bids | stats |
 | `settlementBlocks() → uint256` | blocos de settlement (o site assume 480 se não existir) | textos e estimativa de tempo |
 
 ## Escrita
